@@ -1,0 +1,4069 @@
+{
+  "meta": {
+    "source": "AhmadZiada 16 Week Complete Program - Calgary Barbell.xlsx",
+    "parsedAt": "2026-02-10T05:04:08.909Z",
+    "defaultTrainingMaxes": {
+      "squat": 315,
+      "bench": 255,
+      "deadlift": 365,
+      "roundTo": 5,
+      "units": "lbs"
+    },
+    "e1rmFormula": "epley",
+    "e1rmFormulaDescription": "E1RM = weight × (1 + reps / 30)"
+  },
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "weekLabel": "Week 1, Day 1",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Week 1, Day 1",
+          "exercises": [
+            {
+              "id": "w1d1e0",
+              "name": "Competition Squat",
+              "sets": 4,
+              "reps": 7,
+              "intensity": 0.67,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.67
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d1e1",
+              "name": "Paused Bench",
+              "sets": 4,
+              "reps": 7,
+              "intensity": 0.67,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.67
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d1e2",
+              "name": "Overhead Press",
+              "sets": 3,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d1e3",
+              "name": "Bent Over Row",
+              "sets": 3,
+              "reps": 12,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d1e4",
+              "name": "GHR Back Extensions",
+              "sets": 4,
+              "reps": 12,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w1d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 7,
+              "intensity": 0.67,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.67
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d2e1",
+              "name": "3ct Pause Bench",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.6,
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.6
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d2e2",
+              "name": "SSB or Front or High Bar Pause Squat",
+              "sets": 3,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d2e3",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w1d3e0",
+              "name": "Pin Squat (pins set for full depth)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.65,
+              "tempo": "1.1.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d3e1",
+              "name": "2Board Press",
+              "sets": 3,
+              "reps": 6,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d3e2",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d3e3",
+              "name": "Birddogs (reps per side)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w1d4e0",
+              "name": "2ct Pause Deadlift (pause barely off floor)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.63,
+              "tempo": "x",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.63
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d4e1",
+              "name": "Rep Bench (Touch and Go)",
+              "sets": 4,
+              "reps": 10,
+              "intensity": 0.63,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.63
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d4e2",
+              "name": "SLDL",
+              "sets": 3,
+              "reps": 8,
+              "intensity": 0.4,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.4
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w1d4e3",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w1d4e4",
+              "name": "Tricep movement of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "weekLabel": "WEEK 2, Day 1",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Week 1, Day 1",
+          "exercises": [
+            {
+              "id": "w2d1e0",
+              "name": "Competition Squat",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.7,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d1e1",
+              "name": "Paused Bench",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.7,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d1e2",
+              "name": "Overhead Press",
+              "sets": 3,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d1e3",
+              "name": "Bent Over Row",
+              "sets": 3,
+              "reps": 12,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d1e4",
+              "name": "GHR Back Extensions",
+              "sets": 4,
+              "reps": 12,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w2d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.7,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d2e1",
+              "name": "3ct Pause Bench",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.6,
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.6
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d2e2",
+              "name": "SSB or Front or High Bar Pause Squat",
+              "sets": 3,
+              "reps": 6,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 45,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d2e3",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w2d3e0",
+              "name": "Pin Squat (pins set for full depth)",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.7,
+              "tempo": "1.1.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d3e1",
+              "name": "2Board Press",
+              "sets": 3,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d3e2",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d3e3",
+              "name": "Birddogs (reps per side)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w2d4e0",
+              "name": "2ct Pause Deadlift (pause barely off floor)",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "x",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d4e1",
+              "name": "Rep Bench (Touch and Go)",
+              "sets": 4,
+              "reps": 10,
+              "intensity": 0.65,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d4e2",
+              "name": "SLDL",
+              "sets": 3,
+              "reps": 8,
+              "intensity": 0.43,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.43
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w2d4e3",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w2d4e4",
+              "name": "Tricep movement of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "weekLabel": "Week 3, Day 1",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Week 1, Day 1",
+          "exercises": [
+            {
+              "id": "w3d1e0",
+              "name": "Competition Squat",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.73,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d1e1",
+              "name": "Paused Bench",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.73,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d1e2",
+              "name": "Overhead Press",
+              "sets": 3,
+              "reps": 7,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d1e3",
+              "name": "Bent Over Row",
+              "sets": 3,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d1e4",
+              "name": "GHR Back Extensions",
+              "sets": 5,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w3d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 6,
+              "intensity": 0.73,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d2e1",
+              "name": "3ct Pause Bench",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.65,
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d2e2",
+              "name": "SSB or Front or High Bar Pause Squat",
+              "sets": 3,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d2e3",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w3d3e0",
+              "name": "Pin Squat (pins set for full depth)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.68,
+              "tempo": "1.1.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d3e1",
+              "name": "2Board Press",
+              "sets": 3,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d3e2",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d3e3",
+              "name": "Birddogs (reps per side)",
+              "sets": 3,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w3d4e0",
+              "name": "2ct Pause Deadlift (pause barely off floor)",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.68,
+              "tempo": "x",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d4e1",
+              "name": "Rep Bench (Touch and Go)",
+              "sets": 4,
+              "reps": 10,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d4e2",
+              "name": "SLDL",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.45,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.45
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w3d4e3",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w3d4e4",
+              "name": "Tricep movement of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "weekLabel": "Week 4, Day 1",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Week 1, Day 1",
+          "exercises": [
+            {
+              "id": "w4d1e0",
+              "name": "Competition Squat",
+              "sets": 5,
+              "reps": 5,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d1e1",
+              "name": "Paused Bench",
+              "sets": 5,
+              "reps": 5,
+              "intensity": 0.75,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d1e2",
+              "name": "Overhead Press",
+              "sets": 3,
+              "reps": 7,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d1e3",
+              "name": "Bent Over Row",
+              "sets": 3,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d1e4",
+              "name": "GHR Back Extensions",
+              "sets": 5,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w4d2e0",
+              "name": "Competition Deadlift",
+              "sets": 5,
+              "reps": 5,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d2e1",
+              "name": "3ct Pause Bench",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.7,
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d2e2",
+              "name": "SSB or Front or High Bar Pause Squat",
+              "sets": 3,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d2e3",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w4d3e0",
+              "name": "Pin Squat (pins set for full depth)",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.73,
+              "tempo": "1.1.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d3e1",
+              "name": "2Board Press",
+              "sets": 3,
+              "reps": 6,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d3e2",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d3e3",
+              "name": "Birddogs (reps per side)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.1.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w4d4e0",
+              "name": "2ct Pause Deadlift (pause barely off floor)",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.73,
+              "tempo": "x",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d4e1",
+              "name": "Rep Bench (Touch and Go)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": 0.7,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d4e2",
+              "name": "SLDL",
+              "sets": 3,
+              "reps": 6,
+              "intensity": 0.48,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.48
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w4d4e3",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w4d4e4",
+              "name": "Tricep movement of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 5,
+      "weekLabel": "Week 5",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w5d1e0",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.8,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.8
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.8,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.8
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d1e4",
+              "name": "SLDL",
+              "sets": 4,
+              "reps": 9,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d1e5",
+              "name": "Side Planks (seconds per side)",
+              "sets": 3,
+              "reps": "x",
+              "intensity": "30s",
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w5d2e0",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.8,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.8
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d2e2",
+              "name": "2ct Pause Bench",
+              "sets": 3,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d2e3",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d2e4",
+              "name": "Wide Grip Seated Row (mimic bench movement)",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w5d3e0",
+              "name": "2ct Pause Squat",
+              "sets": 4,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.7,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d3e2",
+              "name": "Feet Up Bench",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d3e3",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.65
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w5d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w5d4e0",
+              "name": "2ct Pause Deadlifts (pause barely off the floor)",
+              "sets": 4,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d4e1",
+              "name": "Touch and Go Bench",
+              "sets": 3,
+              "reps": 6,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d4e2",
+              "name": "Close Grip Incline Press",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w5d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 6,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 6,
+      "weekLabel": "Week 6",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w6d1e0",
+              "name": "Competition Squat",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.7,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 5,
+              "reps": 3,
+              "intensity": 0.82,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.7,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d1e4",
+              "name": "SLDL",
+              "sets": 4,
+              "reps": 8,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d1e5",
+              "name": "Side Planks (seconds per side)",
+              "sets": 4,
+              "reps": "x",
+              "intensity": "30s",
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w6d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.7,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.7
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d2e2",
+              "name": "2ct Pause Bench",
+              "sets": 4,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d2e3",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d2e4",
+              "name": "Wide Grip Seated Row (mimic bench movement)",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w6d3e0",
+              "name": "2ct Pause Squat",
+              "sets": 5,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 4,
+              "intensity": 0.73,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.73
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d3e2",
+              "name": "Feet Up Bench",
+              "sets": 3,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d3e3",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w6d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w6d4e0",
+              "name": "2ct Pause Deadlifts (pause barely off the floor)",
+              "sets": 5,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d4e1",
+              "name": "Touch and Go Bench",
+              "sets": 3,
+              "reps": 12,
+              "intensity": "10RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d4e2",
+              "name": "Close Grip Incline Press",
+              "sets": 4,
+              "reps": 7,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w6d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 6,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 7,
+      "weekLabel": "Week 7",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w7d1e0",
+              "name": "Competition Squat",
+              "sets": 5,
+              "reps": 2,
+              "intensity": 0.86,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.86
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.72
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 5,
+              "reps": 2,
+              "intensity": 0.86,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.86
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.72
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d1e4",
+              "name": "SLDL",
+              "sets": 4,
+              "reps": 8,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d1e5",
+              "name": "Side Planks (seconds per side)",
+              "sets": 4,
+              "reps": "x",
+              "intensity": "45s",
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w7d2e0",
+              "name": "Competition Deadlift",
+              "sets": 5,
+              "reps": 2,
+              "intensity": 0.86,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.86
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.72
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d2e2",
+              "name": "2ct Pause Bench",
+              "sets": 3,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d2e3",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d2e4",
+              "name": "Wide Grip Seated Row (mimic bench movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w7d3e0",
+              "name": "2ct Pause Squat",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "9RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 3,
+              "intensity": 0.75,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d3e2",
+              "name": "Feet Up Bench",
+              "sets": 4,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d3e3",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w7d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w7d4e0",
+              "name": "2ct Pause Deadlifts (pause barely off the floor)",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d4e1",
+              "name": "Touch and Go Bench",
+              "sets": 4,
+              "reps": 7,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d4e2",
+              "name": "Close Grip Incline Press",
+              "sets": 5,
+              "reps": 6,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w7d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 6,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 8,
+      "weekLabel": "Week 8",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w8d1e0",
+              "name": "Competition Squat",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.85,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d1e1",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 5,
+              "reps": 3,
+              "intensity": 0.85,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.75,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d1e4",
+              "name": "SLDL",
+              "sets": 4,
+              "reps": 7,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d1e5",
+              "name": "Side Planks (seconds per side)",
+              "sets": 4,
+              "reps": "x",
+              "intensity": "45s",
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w8d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.85,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d2e1",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d2e2",
+              "name": "2ct Pause Bench",
+              "sets": 4,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.3.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d2e3",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d2e4",
+              "name": "Wide Grip Seated Row (mimic bench movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w8d3e0",
+              "name": "2ct Pause Squat",
+              "sets": 4,
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d3e2",
+              "name": "Feet Up Bench",
+              "sets": 4,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d3e3",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w8d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w8d4e0",
+              "name": "2ct Pause Deadlifts (pause barely off the floor)",
+              "sets": 4,
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d4e1",
+              "name": "Touch and Go Bench",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d4e2",
+              "name": "Close Grip Incline Press",
+              "sets": 4,
+              "reps": 10,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w8d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 6,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 9,
+      "weekLabel": "Week 9",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w9d1e0",
+              "name": "Competition Squat",
+              "sets": 5,
+              "reps": 4,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 4,
+              "intensity": 0.82,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.71,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d1e4",
+              "name": "Bent Over Row",
+              "sets": 4,
+              "reps": 8,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d1e5",
+              "name": "Rolling Planks (total reps, not per side)",
+              "sets": 3,
+              "reps": 20,
+              "intensity": null,
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w9d2e0",
+              "name": "Competition Deadlift",
+              "sets": 4,
+              "reps": 4,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d2e2",
+              "name": "Pin Press (chest level)",
+              "sets": 4,
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d2e3",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d2e4",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w9d3e0",
+              "name": "2ct Pause Squats",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.72,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.72
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d3e2",
+              "name": "Close Grip Bench Press",
+              "sets": "1+2R",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d3e3",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.68
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w9d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w9d4e0",
+              "name": "2ct Pause Deadlifts (just off floor)",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d4e1",
+              "name": "Bench +mini bands",
+              "sets": "1+1F",
+              "reps": 8,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d4e2",
+              "name": "Barbell Overhead Press",
+              "sets": "1+3R",
+              "reps": 7,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w9d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 10,
+      "weekLabel": "Week 10",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w10d1e0",
+              "name": "Competition Squat",
+              "sets": 6,
+              "reps": 3,
+              "intensity": 0.85,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 7,
+              "reps": 4,
+              "intensity": 0.85,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d1e4",
+              "name": "Bent Over Row",
+              "sets": 4,
+              "reps": 6,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d1e5",
+              "name": "Rolling Planks (total reps, not per side)",
+              "sets": 4,
+              "reps": 20,
+              "intensity": null,
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w10d2e0",
+              "name": "Competition Deadlift",
+              "sets": 5,
+              "reps": 3,
+              "intensity": 0.85,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d2e2",
+              "name": "Pin Press (chest level)",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d2e3",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d2e4",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w10d3e0",
+              "name": "2ct Pause Squats",
+              "sets": "1+3F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 6,
+              "reps": 4,
+              "intensity": 0.75,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d3e2",
+              "name": "Close Grip Bench Press",
+              "sets": "1+1F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d3e3",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 5,
+              "intensity": 0.71,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.71
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w10d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w10d4e0",
+              "name": "2ct Pause Deadlifts (just off floor)",
+              "sets": "1+3F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d4e1",
+              "name": "Bench +mini bands",
+              "sets": "1+1F",
+              "reps": 7,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d4e2",
+              "name": "Barbell Overhead Press",
+              "sets": "1+2R",
+              "reps": 8,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w10d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 11,
+      "weekLabel": "Week 11",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w11d1e0",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.83,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.83
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d1e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.76,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.76
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.83,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.83
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.76,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.76
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d1e4",
+              "name": "Bent Over Row",
+              "sets": 4,
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d1e5",
+              "name": "Rolling Planks (total reps, not per side)",
+              "sets": 4,
+              "reps": 24,
+              "intensity": null,
+              "tempo": "x",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w11d2e0",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.83,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.83
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 4,
+              "intensity": 0.76,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.76
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d2e2",
+              "name": "Pin Press (chest level)",
+              "sets": 4,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d2e3",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d2e4",
+              "name": "Wide Grip Seated Row (cable - mimic bench grip and movement)",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w11d3e0",
+              "name": "2ct Pause Squats",
+              "sets": "1+1R",
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d3e1",
+              "name": "Competition Pause Bench",
+              "sets": 5,
+              "reps": 3,
+              "intensity": 0.78,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.78
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d3e2",
+              "name": "Close Grip Bench Press",
+              "sets": "1+1R",
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d3e3",
+              "name": "Competition Deadlift",
+              "sets": 3,
+              "reps": 4,
+              "intensity": 0.74,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.74
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w11d3e4",
+              "name": "Vertical Pull of choice",
+              "sets": 4,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w11d4e0",
+              "name": "2ct Pause Deadlifts (just off floor)",
+              "sets": "1+1R",
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d4e1",
+              "name": "Bench +mini bands",
+              "sets": "1+1F",
+              "reps": 6,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d4e2",
+              "name": "Barbell Overhead Press",
+              "sets": "1+1R",
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w11d4e3",
+              "name": "1-Arm DB Rows",
+              "sets": 5,
+              "reps": 8,
+              "intensity": null,
+              "tempo": "1.0.1",
+              "restSeconds": 60,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 12,
+      "weekLabel": "Week 12",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w12d1e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d1e1",
+              "name": "Competition Squat (% of E1RM)",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.65
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w12d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d1e3",
+              "name": "Competition Pause Bench (% of E1RM)",
+              "sets": 7,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.65
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w12d1e4",
+              "name": "Overhead Press",
+              "sets": "1+2F",
+              "reps": 6,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w12d2e0",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d2e1",
+              "name": "Competition Deadlift (% of E1RM)",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.65,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.65
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w12d2e2",
+              "name": "2ct Pause Bench",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d2e3",
+              "name": "High Bar Squat",
+              "sets": "1+2R",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w12d3e0",
+              "name": "Pin Squat",
+              "sets": 1,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d3e1",
+              "name": "Pin Squat",
+              "sets": "1+1F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d3e2",
+              "name": "Close Grip Bench",
+              "sets": "1+2F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d3e3",
+              "name": "Feet Up Bench",
+              "sets": "1+1F",
+              "reps": 5,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w12d4e0",
+              "name": "2ct Pause Deadlifts",
+              "sets": 1,
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d4e1",
+              "name": "2ct Pause Deadlifts",
+              "sets": "1+2F",
+              "reps": 5,
+              "intensity": "9RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w12d4e2",
+              "name": "Touch and Go Bench",
+              "sets": "1+3R",
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 13,
+      "weekLabel": "Week 13",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w13d1e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d1e1",
+              "name": "Competition Squat (% of E1RM)",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.68
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w13d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d1e3",
+              "name": "Competition Pause Bench (% of E1RM)",
+              "sets": 7,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.68
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w13d1e4",
+              "name": "Overhead Press",
+              "sets": "1+1F",
+              "reps": 7,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w13d2e0",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d2e1",
+              "name": "Competition Deadlift (% of E1RM)",
+              "sets": 6,
+              "reps": 5,
+              "intensity": 0.68,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.68
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w13d2e2",
+              "name": "2ct Pause Bench",
+              "sets": "1+2R",
+              "reps": 5,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d2e3",
+              "name": "High Bar Squat",
+              "sets": "1+1F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w13d3e0",
+              "name": "Pin Squat",
+              "sets": 1,
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d3e1",
+              "name": "Pin Squat",
+              "sets": "1+1F",
+              "reps": 5,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d3e2",
+              "name": "Close Grip Bench",
+              "sets": "1+1F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d3e3",
+              "name": "Feet Up Bench",
+              "sets": "1+1F",
+              "reps": 6,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w13d4e0",
+              "name": "2ct Pause Deadlifts",
+              "sets": 1,
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d4e1",
+              "name": "2ct Pause Deadlifts",
+              "sets": "1+2R",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w13d4e2",
+              "name": "Touch and Go Bench",
+              "sets": "1+3R",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 14,
+      "weekLabel": "Week 14",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w14d1e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d1e1",
+              "name": "Competition Squat (% of E1RM)",
+              "sets": 4,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.72
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w14d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "9RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d1e3",
+              "name": "Competition Pause Bench (% of E1RM)",
+              "sets": 5,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.72
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w14d1e4",
+              "name": "Overhead Press",
+              "sets": "1+2R",
+              "reps": 6,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 120,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w14d2e0",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d2e1",
+              "name": "Competition Deadlift (% of E1RM)",
+              "sets": 4,
+              "reps": 4,
+              "intensity": 0.72,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.72
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w14d2e2",
+              "name": "2ct Pause Bench",
+              "sets": "1+2F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d2e3",
+              "name": "High Bar Squat",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w14d3e0",
+              "name": "Pin Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d3e1",
+              "name": "Pin Squat",
+              "sets": "1+1F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d3e2",
+              "name": "Close Grip Bench",
+              "sets": "1+2R",
+              "reps": 3,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d3e3",
+              "name": "Feet Up Bench",
+              "sets": "1+1F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w14d4e0",
+              "name": "2ct Pause Deadlifts",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d4e1",
+              "name": "2ct Pause Deadlifts",
+              "sets": "1+2F",
+              "reps": 2,
+              "intensity": "9RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w14d4e2",
+              "name": "Touch and Go Bench",
+              "sets": "1+1F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 15,
+      "weekLabel": "Week 15",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "Day 1",
+          "exercises": [
+            {
+              "id": "w15d1e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d1e1",
+              "name": "Competition Squat (% of E1RM)",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.76,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.76
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w15d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "9RPE",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d1e3",
+              "name": "Competition Pause Bench (% of E1RM)",
+              "sets": 4,
+              "reps": 3,
+              "intensity": 0.76,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.76
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w15d1e4",
+              "name": "Overhead Press",
+              "sets": "1+1F",
+              "reps": 5,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 90,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "Day 2",
+          "exercises": [
+            {
+              "id": "w15d2e0",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d2e1",
+              "name": "Competition Deadlift (% of E1RM)",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.76,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.76
+              },
+              "isE1RM": true
+            },
+            {
+              "id": "w15d2e2",
+              "name": "2ct Pause Bench",
+              "sets": "1+2R",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d2e3",
+              "name": "High Bar Squat",
+              "sets": "1+1R",
+              "reps": 2,
+              "intensity": "8RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "Day 3",
+          "exercises": [
+            {
+              "id": "w15d3e0",
+              "name": "Pin Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d3e1",
+              "name": "Pin Squat",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "8RPE",
+              "tempo": "1.2.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d3e2",
+              "name": "Close Grip Bench",
+              "sets": "1+1F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d3e3",
+              "name": "Feet Up Bench",
+              "sets": "1+1F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "Day 4",
+          "exercises": [
+            {
+              "id": "w15d4e0",
+              "name": "2ct Pause Deadlifts",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "8RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d4e1",
+              "name": "2ct Pause Deadlifts",
+              "sets": "1+2F",
+              "reps": 4,
+              "intensity": "9RPE",
+              "tempo": "x",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w15d4e2",
+              "name": "Touch and Go Bench",
+              "sets": "1+2F",
+              "reps": 3,
+              "intensity": "9RPE",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 16,
+      "weekLabel": "Taper Week",
+      "days": [
+        {
+          "dayNumber": 1,
+          "dayLabel": "5 Days from Competition",
+          "exercises": [
+            {
+              "id": "w16d1e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "Opener",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w16d1e1",
+              "name": "Competition Squat",
+              "sets": 3,
+              "reps": 2,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d1e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "Opener",
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w16d1e3",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 2,
+              "intensity": 0.84,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.84
+              },
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "dayLabel": "4 Days from Competition",
+          "exercises": [
+            {
+              "id": "w16d2e0",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 1,
+              "intensity": "Opener",
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": null,
+              "isE1RM": false
+            },
+            {
+              "id": "w16d2e1",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 2,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d2e2",
+              "name": "Competition Pause Bench",
+              "sets": 4,
+              "reps": 1,
+              "intensity": 0.85,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "dayLabel": "3 Days From Competition",
+          "exercises": [
+            {
+              "id": "w16d3e0",
+              "name": "Competition Squat",
+              "sets": 1,
+              "reps": 1,
+              "intensity": 0.85,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d3e1",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 2,
+              "intensity": 0.78,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.78
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d3e2",
+              "name": "Competition Pause Bench",
+              "sets": 1,
+              "reps": 1,
+              "intensity": 0.85,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.85
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d3e3",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 2,
+              "intensity": 0.78,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.78
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d3e4",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 1,
+              "intensity": 0.82,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.82
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d3e5",
+              "name": "Competition Deadlift",
+              "sets": 2,
+              "reps": 2,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            }
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "dayLabel": "2 Days From Competition",
+          "exercises": [
+            {
+              "id": "w16d4e0",
+              "name": "Competition Squat",
+              "sets": 2,
+              "reps": 3,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "squat",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d4e1",
+              "name": "Competition Pause Bench",
+              "sets": 3,
+              "reps": 3,
+              "intensity": 0.78,
+              "tempo": "1.1.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "bench",
+                "percent": 0.78
+              },
+              "isE1RM": false
+            },
+            {
+              "id": "w16d4e2",
+              "name": "Competition Deadlift",
+              "sets": 1,
+              "reps": 3,
+              "intensity": 0.75,
+              "tempo": "1.0.1",
+              "restSeconds": 180,
+              "computedLoadRule": {
+                "liftType": "deadlift",
+                "percent": 0.75
+              },
+              "isE1RM": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
