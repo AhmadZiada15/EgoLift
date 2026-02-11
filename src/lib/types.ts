@@ -161,3 +161,43 @@ export interface FriendWithProfile {
     weekProgress?: string; // e.g. "W4D2"
 }
 
+// ── Milestones & Celebrations ────────────────────────────────────────────────
+
+export type MilestoneType =
+    | 'pr-weight'      // New weight PR on a lift
+    | 'pr-e1rm'        // New estimated 1RM
+    | 'streak-3'       // 3-workout streak
+    | 'streak-7'       // 7-workout streak
+    | 'streak-14'      // 14-workout streak
+    | 'streak-30'      // 30-workout streak
+    | 'streak-50'      // 50-workout streak
+    | 'phase-complete' // Completed a training phase
+    | 'program-week'   // Completed a full training week
+    | 'first-workout'; // Very first workout logged
+
+export interface Milestone {
+    id: string;
+    uid: string;
+    displayName: string;
+    photoURL: string | null;
+    type: MilestoneType;
+    title: string;       // e.g. "New Squat PR!"
+    description: string; // e.g. "Hit 315 lbs on Competition Squat"
+    value?: number;      // e.g. the weight or streak count
+    unit?: string;       // e.g. "lbs", "kg", "days"
+    exerciseName?: string;
+    createdAt: string;
+    celebrationCount: number; // total reactions received
+}
+
+export interface Celebration {
+    id: string;
+    milestoneId: string;
+    fromUid: string;
+    fromName: string;
+    fromPhoto: string | null;
+    emoji: string; // 🎉🔥💪👏🏆
+    createdAt: string;
+}
+
+

@@ -20,6 +20,7 @@ import {
 } from '@/lib/friends';
 import { FriendWithProfile, FriendRequest, UserSettings, WorkoutLog } from '@/lib/types';
 import { FriendDetail } from './FriendDetail';
+import { ActivityFeed } from './ActivityFeed';
 
 // ── Main Friends Component ───────────────────────────────────────────────────
 
@@ -121,7 +122,7 @@ export function Friends() {
                 friend={selectedFriend}
                 currentUser={user}
                 onBack={() => { setView('list'); setSelectedFriend(null); }}
-                onNudge={async (message) => {
+                onNudge={async (message: string) => {
                     await sendNudge(
                         user.uid,
                         user.displayName || 'User',
@@ -435,9 +436,13 @@ export function Friends() {
                             </span>
                         </div>
                     )}
+
+                    {/* Activity Feed - Milestones & Celebrations */}
+                    <ActivityFeed />
                 </div>
             )}
         </div>
+
     );
 }
 

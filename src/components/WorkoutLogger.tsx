@@ -5,6 +5,7 @@ import { useApp } from '@/lib/context';
 import { WorkoutLog, ExerciseLogEntry, SetLog, ExercisePrescription } from '@/lib/types';
 import { computeExerciseLoad, formatWeight, formatIntensity, estimateE1RM, weightFromE1RM } from '@/lib/calculations';
 import { evaluateReactions, getStreakMessage, calculateStreak, Reaction } from '@/lib/personality';
+import { detectAndPublishMilestones } from '@/lib/milestones';
 import { ReactionToast } from './ReactionToast';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -26,7 +27,7 @@ function createEmptySet(index: number, weight: number | null, reps: number | nul
 }
 
 export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLoggerProps) {
-    const { program, settings, addWorkoutLog, workoutLogs, updateSettings } = useApp();
+    const { program, settings, addWorkoutLog, workoutLogs, updateSettings, user } = useApp();
 
     const week = program?.weeks.find(w => w.weekNumber === weekNumber);
     const day = week?.days.find(d => d.dayNumber === dayNumber);
@@ -135,9 +136,10 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
         };
         await addWorkoutLog(log);
 
+        const allLogs = [...workoutLogs, log];
+
         // Calculate reactions
         if (settings.reactionsEnabled && settings.personalityMode !== 'silent') {
-            const allLogs = [...workoutLogs, log];
             const reactions = evaluateReactions(log, allLogs, settings);
 
             // Streak update
@@ -150,6 +152,14 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
                 currentStreak: newStreak,
                 lastWorkoutDate: today,
             });
+
+            // Publish milestones (fire-and-forget — don't block UI)
+            if (user) {
+                const updatedSettings = { ...settings, currentStreak: newStreak, lastWorkoutDate: today };
+                detectAndPublishMilestones(
+                    user.uid, user.displayName || 'User', user.photoURL, log, allLogs, updatedSettings
+                ).catch(err => console.error('Milestone publish failed:', err));
+            }
 
             // Combine reactions (streak message has special priority)
             const allReactions = streakReaction ? [streakReaction, ...reactions] : reactions;
@@ -164,6 +174,14 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
             const today = new Date().toISOString().split('T')[0];
             const newStreak = calculateStreak(settings.lastWorkoutDate, today, settings.currentStreak);
             await updateSettings({ currentStreak: newStreak, lastWorkoutDate: today });
+
+            // Publish milestones in silent mode too
+            if (user) {
+                const updatedSettings = { ...settings, currentStreak: newStreak, lastWorkoutDate: today };
+                detectAndPublishMilestones(
+                    user.uid, user.displayName || 'User', user.photoURL, log, allLogs, updatedSettings
+                ).catch(err => console.error('Milestone publish failed:', err));
+            }
         }
 
         onFinish();
