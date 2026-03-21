@@ -49,7 +49,7 @@ function getE1RMFromEntry(entry: ExerciseLogEntry): number | null {
 const COLORS: Record<LiftFilter, string> = {
     squat: '#e53e3e',
     bench: '#4299e1',
-    deadlift: '#48bb78',
+    deadlift: 'white',
 };
 
 export function Progress() {

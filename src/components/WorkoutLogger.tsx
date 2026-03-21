@@ -331,7 +331,7 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
                                                 {!set.completed ? (
                                                     <button
                                                         className="btn btn-icon btn-sm"
-                                                        style={{ background: 'var(--accent-green)', color: 'white', width: '28px', height: '28px', fontSize: '12px' }}
+                                                        style={{ background: 'var(--accent-green)', color: 'black', width: '28px', height: '28px', fontSize: '12px' }}
                                                         onClick={() => completeSet(exerciseIdx, setIdx)}
                                                         title="Complete set"
                                                     >✓</button>
