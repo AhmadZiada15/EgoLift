@@ -2,9 +2,9 @@
 
 import React, { useState, useMemo } from 'react';
 import { useApp } from '@/lib/context';
-import { estimateE1RM, convertWeight, formatWeight } from '@/lib/calculations';
-import { WorkoutLog, ExerciseLogEntry, UnitType, ChartDataPoint } from '@/lib/types';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { estimateE1RM } from '@/lib/calculations';
+import { ExerciseLogEntry, ChartDataPoint } from '@/lib/types';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 
 type LiftFilter = 'squat' | 'bench' | 'deadlift';
 type TimeRange = '4w' | '8w' | 'all';
@@ -47,10 +47,31 @@ function getE1RMFromEntry(entry: ExerciseLogEntry): number | null {
 }
 
 const COLORS: Record<LiftFilter, string> = {
-    squat: '#e53e3e',
-    bench: '#4299e1',
-    deadlift: 'white',
+    squat: '#f5ede0',
+    bench: '#c97b8e',
+    deadlift: '#c9b5a8',
 };
+
+function ProgressTooltip({
+    active,
+    payload,
+    units,
+}: {
+    active?: boolean;
+    payload?: Array<{ payload: ChartDataPoint }>;
+    units: string;
+}) {
+    if (!active || !payload?.length) return null;
+
+    const data = payload[0].payload;
+    return (
+        <div className="progress-tooltip">
+            <div className="progress-tooltip-value">{data.value} {units}</div>
+            <div className="progress-tooltip-label">{data.label}</div>
+            <div className="progress-tooltip-date">{data.date}</div>
+        </div>
+    );
+}
 
 export function Progress() {
     const { workoutLogs, settings } = useApp();
@@ -58,6 +79,7 @@ export function Progress() {
     const [timeRange, setTimeRange] = useState<TimeRange>('all');
     const [chartType, setChartType] = useState<ChartType>('topSet');
     const [competitionOnly, setCompetitionOnly] = useState(false);
+    const [panel, setPanel] = useState<'chart' | 'stats'>('chart');
 
     const chartData = useMemo(() => {
         if (!settings) return [];
@@ -112,163 +134,183 @@ export function Progress() {
     const firstValue = chartData.length > 0 ? chartData[0].value : 0;
     const lastValue = chartData.length > 0 ? chartData[chartData.length - 1].value : 0;
     const improvement = lastValue - firstValue;
+    const timeRangeLabel = timeRange === '4w' ? '4 weeks' : timeRange === '8w' ? '8 weeks' : 'all time';
+    const liftLabel = lift.charAt(0).toUpperCase() + lift.slice(1);
 
     if (!settings) return null;
 
-    const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: ChartDataPoint }> }) => {
-        if (!active || !payload?.length) return null;
-        const data = payload[0].payload;
-        return (
-            <div style={{
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '8px',
-                padding: '8px 12px',
-                fontSize: '12px',
-            }}>
-                <div style={{ fontWeight: 600 }}>{data.value} {settings.units}</div>
-                <div style={{ color: 'var(--text-muted)' }}>{data.label}</div>
-                <div style={{ color: 'var(--text-muted)' }}>{data.date}</div>
-            </div>
-        );
-    };
-
     return (
-        <div>
-            <h2 className="section-title">Progress</h2>
-
-            {/* Lift Selector */}
-            <div className="pill-group mb-4">
-                {(['squat', 'bench', 'deadlift'] as LiftFilter[]).map(l => (
-                    <div
-                        key={l}
-                        className={`pill ${lift === l ? 'active' : ''}`}
-                        onClick={() => setLift(l)}
-                        style={lift === l ? { background: COLORS[l] } : {}}
-                    >
-                        {l.charAt(0).toUpperCase() + l.slice(1)}
+        <div className="progress-screen">
+            <section className="progress-hero animate-slide-up">
+                <p className="program-eyebrow">Performance Trends</p>
+                <div className="progress-hero-top">
+                    <div>
+                        <h2 className="progress-hero-title">{liftLabel}</h2>
+                        <p className="progress-hero-copy">
+                            {chartType === 'topSet' ? 'Track your heaviest working sets.' : 'Track estimated max strength over time.'}
+                        </p>
                     </div>
-                ))}
-            </div>
-
-            {/* Chart Type Toggle */}
-            <div className="toggle-group mb-4">
-                <div className={`toggle-option ${chartType === 'topSet' ? 'active' : ''}`}
-                    onClick={() => setChartType('topSet')}>
-                    Top Set
-                </div>
-                <div className={`toggle-option ${chartType === 'e1rm' ? 'active' : ''}`}
-                    onClick={() => setChartType('e1rm')}>
-                    Est. 1RM
-                </div>
-            </div>
-
-            {/* Time Range */}
-            <div className="pill-group mb-4">
-                {[
-                    { key: '4w' as TimeRange, label: '4 Weeks' },
-                    { key: '8w' as TimeRange, label: '8 Weeks' },
-                    { key: 'all' as TimeRange, label: 'All Time' },
-                ].map(opt => (
-                    <div
-                        key={opt.key}
-                        className={`pill ${timeRange === opt.key ? 'active' : ''}`}
-                        onClick={() => setTimeRange(opt.key)}
-                        style={timeRange === opt.key ? { background: 'var(--bg-card-hover)', borderColor: 'var(--border-active)', color: 'var(--text-primary)' } : {}}
-                    >
-                        {opt.label}
+                    <div className="progress-hero-value-block">
+                        <div className="progress-hero-value">{currentBest ? `${currentBest}` : '—'}</div>
+                        <div className="progress-hero-unit">{settings.units}</div>
                     </div>
-                ))}
-            </div>
-
-            {/* Variation Toggle */}
-            <div className="flex items-center gap-2 mb-4" style={{ cursor: 'pointer' }} onClick={() => setCompetitionOnly(!competitionOnly)}>
-                <div style={{
-                    width: '18px', height: '18px', borderRadius: '4px',
-                    border: '2px solid var(--border-active)',
-                    background: competitionOnly ? COLORS[lift] : 'transparent',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '11px', color: 'white', transition: 'all 0.2s',
-                }}>
-                    {competitionOnly && '✓'}
                 </div>
-                <span className="text-sm text-secondary">Competition lifts only</span>
-            </div>
+                <div className="progress-hero-meta">
+                    <span>{chartType === 'topSet' ? 'Top Set' : 'Estimated 1RM'}</span>
+                    <span>&middot;</span>
+                    <span>{timeRangeLabel}</span>
+                    <span>&middot;</span>
+                    <span>{competitionOnly ? 'competition only' : 'all variations'}</span>
+                </div>
+            </section>
 
-            {/* Chart */}
-            <div className="card mb-4">
-                {chartData.length === 0 ? (
-                    <div className="empty-state" style={{ padding: '32px 16px' }}>
-                        <div className="empty-state-icon">📊</div>
-                        <div className="empty-state-text">
-                            No data yet for {lift}.<br />Log some workouts to see your progress!
+            <section className="card progress-filter-card">
+                <div className="pill-group">
+                    {(['squat', 'bench', 'deadlift'] as LiftFilter[]).map(l => (
+                        <button
+                            key={l}
+                            type="button"
+                            className={`pill ${lift === l ? 'active' : ''}`}
+                            onClick={() => setLift(l)}
+                            style={lift === l ? { background: 'var(--accent-red)', color: 'var(--bg-primary)' } : {}}
+                        >
+                            {l.charAt(0).toUpperCase() + l.slice(1)}
+                        </button>
+                    ))}
+                </div>
+
+                <div className="toggle-group">
+                    <button
+                        type="button"
+                        className={`toggle-option ${chartType === 'topSet' ? 'active' : ''}`}
+                        onClick={() => setChartType('topSet')}
+                    >
+                        Top Set
+                    </button>
+                    <button
+                        type="button"
+                        className={`toggle-option ${chartType === 'e1rm' ? 'active' : ''}`}
+                        onClick={() => setChartType('e1rm')}
+                    >
+                        Est. 1RM
+                    </button>
+                </div>
+
+                <div className="progress-filter-row">
+                    <div className="pill-group">
+                        {[
+                            { key: '4w' as TimeRange, label: '4 Weeks' },
+                            { key: '8w' as TimeRange, label: '8 Weeks' },
+                            { key: 'all' as TimeRange, label: 'All Time' },
+                        ].map(opt => (
+                            <button
+                                key={opt.key}
+                                type="button"
+                                className={`pill ${timeRange === opt.key ? 'active' : ''}`}
+                                onClick={() => setTimeRange(opt.key)}
+                                style={timeRange === opt.key ? { background: 'var(--bg-card-hover)', borderColor: 'var(--border-active)', color: 'var(--text-primary)' } : {}}
+                            >
+                                {opt.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <button
+                        type="button"
+                        className="progress-variation-toggle"
+                        onClick={() => setCompetitionOnly(!competitionOnly)}
+                    >
+                        <div className={`progress-variation-check ${competitionOnly ? 'active' : ''}`}>
+                            {competitionOnly && '✓'}
                         </div>
-                    </div>
-                ) : (
-                    <div style={{ width: '100%', height: 250 }}>
-                        <ResponsiveContainer>
-                            <AreaChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
-                                <defs>
-                                    <linearGradient id={`gradient-${lift}`} x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor={COLORS[lift]} stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor={COLORS[lift]} stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                                <XAxis
-                                    dataKey="date"
-                                    tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
-                                    tickFormatter={d => {
-                                        const parts = d.split('-');
-                                        return `${parts[1]}/${parts[2]}`;
-                                    }}
-                                />
-                                <YAxis
-                                    tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
-                                    domain={['dataMin - 10', 'dataMax + 10']}
-                                />
-                                <Tooltip content={<CustomTooltip />} />
-                                <Area
-                                    type="monotone"
-                                    dataKey="value"
-                                    stroke={COLORS[lift]}
-                                    strokeWidth={2}
-                                    fill={`url(#gradient-${lift})`}
-                                    dot={{ fill: COLORS[lift], strokeWidth: 0, r: 4 }}
-                                    activeDot={{ r: 6, fill: COLORS[lift], stroke: 'white', strokeWidth: 2 }}
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                        <span className="text-sm text-secondary">Competition only</span>
+                    </button>
+                </div>
+            </section>
+
+            <div className="screen-segmented-control" role="tablist" aria-label="Progress view">
+                <button type="button" className={`screen-segment ${panel === 'chart' ? 'active' : ''}`} onClick={() => setPanel('chart')}>Chart</button>
+                <button type="button" className={`screen-segment ${panel === 'stats' ? 'active' : ''}`} onClick={() => setPanel('stats')}>Stats</button>
+            </div>
+
+            <div className="screen-panel progress-screen-panel">
+                {panel === 'chart' && (
+                    <div className="card progress-chart-card">
+                        {chartData.length === 0 ? (
+                            <div className="empty-state progress-empty-state" style={{ padding: '32px 16px' }}>
+                                <div className="empty-state-icon">📊</div>
+                                <div className="empty-state-text">
+                                    No data yet for {lift}.<br />Log some workouts to see your progress!
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{ width: '100%', height: 210 }}>
+                                <ResponsiveContainer>
+                                    <AreaChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
+                                        <defs>
+                                            <linearGradient id={`gradient-${lift}`} x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor={COLORS[lift]} stopOpacity={0.3} />
+                                                <stop offset="95%" stopColor={COLORS[lift]} stopOpacity={0} />
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                                        <XAxis
+                                            dataKey="date"
+                                            tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
+                                            tickFormatter={d => {
+                                                const parts = d.split('-');
+                                                return `${parts[1]}/${parts[2]}`;
+                                            }}
+                                        />
+                                        <YAxis
+                                            tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
+                                            domain={['dataMin - 10', 'dataMax + 10']}
+                                        />
+                                        <Tooltip content={<ProgressTooltip units={settings.units} />} />
+                                        <Area
+                                            type="monotone"
+                                            dataKey="value"
+                                            stroke={COLORS[lift]}
+                                            strokeWidth={2}
+                                            fill={`url(#gradient-${lift})`}
+                                            dot={{ fill: COLORS[lift], strokeWidth: 0, r: 4 }}
+                                            activeDot={{ r: 6, fill: COLORS[lift], stroke: 'white', strokeWidth: 2 }}
+                                        />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        )}
                     </div>
                 )}
-            </div>
 
-            {/* Stats Cards */}
-            {chartData.length > 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-                    <div className="card" style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '20px', fontWeight: 800, color: COLORS[lift] }}>{currentBest}</div>
-                        <div className="stat-label">{chartType === 'e1rm' ? 'Peak E1RM' : 'Best Set'}</div>
-                    </div>
-                    <div className="card" style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '20px', fontWeight: 800, color: COLORS[lift] }}>{lastValue}</div>
-                        <div className="stat-label">Latest</div>
-                    </div>
-                    <div className="card" style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '20px', fontWeight: 800, color: improvement >= 0 ? 'var(--accent-green)' : 'var(--accent-red)' }}>
-                            {improvement >= 0 ? '+' : ''}{improvement}
+                {panel === 'stats' && (
+                    <div className="progress-stats-panel">
+                        {chartData.length > 0 && (
+                            <div className="progress-stats-grid">
+                                <div className="card progress-stat-card">
+                                    <div className="progress-stat-value">{currentBest}</div>
+                                    <div className="stat-label">{chartType === 'e1rm' ? 'Peak E1RM' : 'Best Set'}</div>
+                                </div>
+                                <div className="card progress-stat-card">
+                                    <div className="progress-stat-value">{lastValue}</div>
+                                    <div className="stat-label">Latest</div>
+                                </div>
+                                <div className="card progress-stat-card">
+                                    <div className={`progress-stat-value ${improvement >= 0 ? 'positive' : 'negative'}`}>
+                                        {improvement >= 0 ? '+' : ''}{improvement}
+                                    </div>
+                                    <div className="stat-label">Change ({settings.units})</div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="card progress-formula-card">
+                            <p className="text-sm text-muted">
+                                <strong>E1RM Formula:</strong> Epley method. Estimated 1RM = weight × (1 + reps / 30), using the best logged set for each day.
+                            </p>
                         </div>
-                        <div className="stat-label">Change ({settings.units})</div>
                     </div>
-                </div>
-            )}
-
-            {/* Formula Info */}
-            <div className="card mt-4" style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
-                <p className="text-sm text-muted">
-                    📐 <strong>E1RM Formula:</strong> Epley method — E1RM = weight × (1 + reps / 30).
-                    Calculated from your best logged set for each day.
-                </p>
+                )}
             </div>
         </div>
     );

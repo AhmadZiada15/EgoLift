@@ -1,197 +1,309 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useApp } from '@/lib/context';
+import { convertWeight, formatWeight } from '@/lib/calculations';
+import { UnitType, UserSettings } from '@/lib/types';
+
+type LiftKey = 'squat' | 'bench' | 'deadlift';
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function getDisplayMaxes(settings: UserSettings) {
+    return {
+        squat: settings.units === 'lbs'
+            ? settings.trainingMaxes.squat
+            : Math.round(convertWeight(settings.trainingMaxes.squat, 'lbs', 'kg') * 10) / 10,
+        bench: settings.units === 'lbs'
+            ? settings.trainingMaxes.bench
+            : Math.round(convertWeight(settings.trainingMaxes.bench, 'lbs', 'kg') * 10) / 10,
+        deadlift: settings.units === 'lbs'
+            ? settings.trainingMaxes.deadlift
+            : Math.round(convertWeight(settings.trainingMaxes.deadlift, 'lbs', 'kg') * 10) / 10,
+    };
+}
+
+function detectLiftKey(exerciseName: string): LiftKey | null {
+    const normalized = exerciseName.toLowerCase();
+    if (normalized.includes('squat')) return 'squat';
+    if (normalized.includes('bench')) return 'bench';
+    if (normalized.includes('deadlift')) return 'deadlift';
+    return null;
+}
+
+function toDisplayUnits(value: number, from: UnitType, to: UnitType): number {
+    return from === to ? value : convertWeight(value, from, to);
+}
 
 export function History() {
-    const { workoutLogs, settings } = useApp();
+    const { workoutLogs, settings, updateSettings } = useApp();
     const [selectedMonth, setSelectedMonth] = useState(() => new Date());
     const [selectedLog, setSelectedLog] = useState<string | null>(null);
+    const [saved, setSaved] = useState(false);
+
+    const [squat, setSquat] = useState('');
+    const [bench, setBench] = useState('');
+    const [deadlift, setDeadlift] = useState('');
+
+    useEffect(() => {
+        if (!settings) return;
+        const displayMaxes = getDisplayMaxes(settings);
+        setSquat(String(displayMaxes.squat));
+        setBench(String(displayMaxes.bench));
+        setDeadlift(String(displayMaxes.deadlift));
+    }, [settings]);
 
     const year = selectedMonth.getFullYear();
     const month = selectedMonth.getMonth();
 
-    // Calendar data
     const calendarDays = useMemo(() => {
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
-        const startDayOfWeek = firstDay.getDay(); // 0=Sun
+        const startDayOfWeek = firstDay.getDay();
         const daysInMonth = lastDay.getDate();
-
         const days: { date: Date; inMonth: boolean }[] = [];
 
-        // Fill previous month
-        for (let i = 0; i < startDayOfWeek; i++) {
-            const d = new Date(year, month, -startDayOfWeek + i + 1);
-            days.push({ date: d, inMonth: false });
+        for (let i = 0; i < startDayOfWeek; i += 1) {
+            days.push({ date: new Date(year, month, -startDayOfWeek + i + 1), inMonth: false });
         }
 
-        // Current month
-        for (let i = 1; i <= daysInMonth; i++) {
-            days.push({ date: new Date(year, month, i), inMonth: true });
+        for (let day = 1; day <= daysInMonth; day += 1) {
+            days.push({ date: new Date(year, month, day), inMonth: true });
         }
 
-        // Fill next month
-        const remaining = 7 - (days.length % 7);
-        if (remaining < 7) {
-            for (let i = 1; i <= remaining; i++) {
-                days.push({ date: new Date(year, month + 1, i), inMonth: false });
+        const trailingDays = 7 - (days.length % 7);
+        if (trailingDays < 7) {
+            for (let day = 1; day <= trailingDays; day += 1) {
+                days.push({ date: new Date(year, month + 1, day), inMonth: false });
             }
         }
 
         return days;
-    }, [year, month]);
+    }, [month, year]);
 
     const workoutDates = useMemo(() => {
-        const map = new Map<string, typeof workoutLogs>();
-        workoutLogs.forEach(log => {
-            const key = log.date;
-            if (!map.has(key)) map.set(key, []);
-            map.get(key)!.push(log);
+        const grouped = new Map<string, typeof workoutLogs>();
+        workoutLogs.forEach((log) => {
+            if (!grouped.has(log.date)) grouped.set(log.date, []);
+            grouped.get(log.date)!.push(log);
         });
-        return map;
+        return grouped;
     }, [workoutLogs]);
 
+    const recentLogs = useMemo(
+        () => [...workoutLogs].filter((log) => log.completedAt).sort((a, b) => b.date.localeCompare(a.date)),
+        [workoutLogs]
+    );
+    const selectedWorkoutLog = selectedLog ? workoutLogs.find((log) => log.id === selectedLog) ?? null : null;
+    const activeLog = selectedWorkoutLog ?? recentLogs[0] ?? null;
+    const completedThisMonth = recentLogs.filter((log) => {
+        const logDate = new Date(`${log.date}T00:00:00`);
+        return logDate.getFullYear() === year && logDate.getMonth() === month;
+    }).length;
     const today = new Date().toISOString().split('T')[0];
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    const selectedWorkoutLog = selectedLog ? workoutLogs.find(l => l.id === selectedLog) : null;
+    const bestLogged = useMemo(() => {
+        const best: Record<LiftKey, number | null> = {
+            squat: null,
+            bench: null,
+            deadlift: null,
+        };
 
-    const prevMonth = () => setSelectedMonth(new Date(year, month - 1, 1));
-    const nextMonth = () => setSelectedMonth(new Date(year, month + 1, 1));
+        recentLogs.forEach((log) => {
+            log.entries.forEach((entry) => {
+                const lift = detectLiftKey(entry.exerciseName);
+                if (!lift || entry.skipped) return;
+
+                entry.sets.forEach((set) => {
+                    if (!set.completed || set.weight === null || !settings) return;
+                    const converted = toDisplayUnits(set.weight, set.weightUnit, settings.units);
+                    best[lift] = best[lift] === null ? converted : Math.max(best[lift]!, converted);
+                });
+            });
+        });
+
+        return best;
+    }, [recentLogs, settings]);
+
+    if (!settings) return null;
+
+    const handleSaveMaxes = async () => {
+        const nextMaxes = {
+            squat: settings.units === 'lbs' ? parseFloat(squat || '0') : convertWeight(parseFloat(squat || '0'), 'kg', 'lbs'),
+            bench: settings.units === 'lbs' ? parseFloat(bench || '0') : convertWeight(parseFloat(bench || '0'), 'kg', 'lbs'),
+            deadlift: settings.units === 'lbs' ? parseFloat(deadlift || '0') : convertWeight(parseFloat(deadlift || '0'), 'kg', 'lbs'),
+        };
+
+        await updateSettings({ trainingMaxes: nextMaxes });
+        setSaved(true);
+        window.setTimeout(() => setSaved(false), 1800);
+    };
 
     return (
-        <div>
-            <h2 className="section-title">History</h2>
-
-            {/* Month Navigator */}
-            <div className="flex justify-between items-center mb-4">
-                <button className="btn btn-ghost" onClick={prevMonth}>◀</button>
-                <span className="font-bold">{monthNames[month]} {year}</span>
-                <button className="btn btn-ghost" onClick={nextMonth}>▶</button>
-            </div>
-
-            {/* Calendar Grid */}
-            <div className="card mb-4">
-                <div className="calendar-grid">
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                        <div key={d} className="calendar-header">{d}</div>
-                    ))}
-                    {calendarDays.map((day, idx) => {
-                        const dateStr = day.date.toISOString().split('T')[0];
-                        const hasWorkout = workoutDates.has(dateStr);
-                        const isToday = dateStr === today;
-                        const logsForDay = workoutDates.get(dateStr) || [];
-
-                        return (
-                            <div
-                                key={idx}
-                                className={`calendar-day ${!day.inMonth ? 'other-month' : ''} ${hasWorkout ? 'has-workout' : ''} ${isToday ? 'today' : ''}`}
-                                onClick={() => {
-                                    if (logsForDay.length > 0) {
-                                        setSelectedLog(logsForDay[0].id);
-                                    }
-                                }}
-                            >
-                                {day.date.getDate()}
-                            </div>
-                        );
-                    })}
+        <div className="calendar-screen">
+            <section className="calendar-hero animate-slide-up">
+                <div className="calendar-hero-copy">
+                    <p className="program-eyebrow">Calendar</p>
+                    <h2 className="calendar-hero-title">{`${MONTH_NAMES[month]} ${year}`}</h2>
                 </div>
-            </div>
+                <div className="calendar-hero-actions">
+                    <button className="btn btn-ghost btn-sm" onClick={() => setSelectedMonth(new Date(year, month - 1, 1))}>Prev</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => setSelectedMonth(new Date(year, month + 1, 1))}>Next</button>
+                </div>
+            </section>
 
-            {/* Stats */}
-            <div className="card-highlight mb-4">
-                <div className="stat-row">
-                    <div>
-                        <div className="stat-value">{workoutLogs.filter(l => l.completedAt).length}</div>
-                        <div className="stat-label">Total Workouts</div>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                        <div className="stat-value" style={{ fontSize: '24px' }}>
-                            {workoutLogs.filter(l => {
-                                const lastWeek = new Date();
-                                lastWeek.setDate(lastWeek.getDate() - 7);
-                                return l.date >= lastWeek.toISOString().split('T')[0];
-                            }).length}
+            <div className="calendar-dashboard">
+                <section className="card calendar-card animate-fade-in">
+                    <div className="calendar-card-top">
+                        <div>
+                            <p className="section-subtitle">Sessions</p>
+                            <p className="calendar-card-stat">{`${completedThisMonth} this month`}</p>
                         </div>
-                        <div className="stat-label">This Week</div>
+                        <p className="calendar-card-stat">{`${recentLogs.length} total`}</p>
                     </div>
-                </div>
-            </div>
 
-            {/* Selected Workout Detail */}
-            {selectedWorkoutLog && (
-                <div className="card fade-in mb-4">
-                    <div className="flex justify-between items-center mb-2">
-                        <h3 style={{ fontSize: '16px', fontWeight: 700 }}>
-                            Week {selectedWorkoutLog.weekNumber} · {selectedWorkoutLog.dayLabel}
-                        </h3>
-                        <button className="btn btn-ghost btn-sm" onClick={() => setSelectedLog(null)}>✕</button>
+                    <div className="calendar-grid">
+                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((dayLabel) => (
+                            <div key={dayLabel} className="calendar-header">{dayLabel}</div>
+                        ))}
+                        {calendarDays.map((day, index) => {
+                            const dateKey = day.date.toISOString().split('T')[0];
+                            const logsForDay = workoutDates.get(dateKey) ?? [];
+                            const hasWorkout = logsForDay.length > 0;
+                            const isToday = today === dateKey;
+
+                            return (
+                                <button
+                                    key={`${dateKey}-${index}`}
+                                    type="button"
+                                    className={`calendar-day ${!day.inMonth ? 'other-month' : ''} ${hasWorkout ? 'has-workout' : ''} ${isToday ? 'today' : ''}`}
+                                    onClick={() => {
+                                        if (logsForDay[0]) {
+                                            setSelectedLog(logsForDay[0].id);
+                                        }
+                                    }}
+                                >
+                                    {day.date.getDate()}
+                                </button>
+                            );
+                        })}
                     </div>
-                    <p className="text-sm text-muted mb-4">{new Date(selectedWorkoutLog.date).toLocaleDateString()}</p>
+                </section>
 
-                    {selectedWorkoutLog.entries.map(entry => (
-                        <div key={entry.id} className="exercise-row">
-                            <div className="exercise-name">
-                                {entry.exerciseName}
-                                {entry.skipped && <span style={{ color: 'var(--accent-red)', fontSize: '11px', marginLeft: '8px' }}>SKIPPED</span>}
+                <div className="calendar-side-stack">
+                    <section className="card calendar-session-card animate-fade-in">
+                        <div className="calendar-card-top">
+                            <div>
+                                <p className="section-subtitle">Selected Session</p>
+                                <h3 className="calendar-session-title">
+                                    {activeLog ? `Week ${activeLog.weekNumber} · ${activeLog.dayLabel}` : 'No session yet'}
+                                </h3>
                             </div>
-                            {!entry.skipped && entry.sets.length > 0 && (
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-                                    {entry.sets.filter(s => s.completed).map((set, i) => (
-                                        <span key={i} style={{ marginRight: '12px' }}>
-                                            {set.weight ?? '—'}{settings?.units} × {set.reps ?? '—'}
-                                            {set.rpe ? ` @${set.rpe}` : ''}
-                                        </span>
+                            {activeLog && <p className="calendar-card-stat">{new Date(activeLog.date).toLocaleDateString()}</p>}
+                        </div>
+
+                        {activeLog ? (
+                            <>
+                                <div className="calendar-session-list">
+                                    {activeLog.entries.map((entry) => (
+                                        <div key={entry.id} className="calendar-session-row">
+                                            <div>
+                                                <div className="calendar-session-exercise">{entry.exerciseName}</div>
+                                                <div className="calendar-session-sets">
+                                                    {entry.skipped
+                                                        ? 'Skipped'
+                                                        : entry.sets
+                                                            .filter((set) => set.completed)
+                                                            .map((set) => `${set.weight ?? '—'}${settings.units} × ${set.reps ?? '—'}`)
+                                                            .join(' · ') || 'No completed sets'}
+                                                </div>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
-                            )}
-                        </div>
-                    ))}
 
-                    {selectedWorkoutLog.notes && (
-                        <div className="mt-2" style={{ fontSize: '12px', color: 'var(--text-muted)', fontStyle: 'italic' }}>
-                            📝 {selectedWorkoutLog.notes}
-                        </div>
-                    )}
-                </div>
-            )}
+                                <div className="calendar-recent-strip">
+                                    {recentLogs.slice(0, 4).map((log) => (
+                                        <button
+                                            key={log.id}
+                                            type="button"
+                                            className={`calendar-recent-pill ${activeLog.id === log.id ? 'active' : ''}`}
+                                            onClick={() => setSelectedLog(log.id)}
+                                        >
+                                            {`W${log.weekNumber}D${log.dayNumber}`}
+                                        </button>
+                                    ))}
+                                </div>
+                            </>
+                        ) : (
+                            <div className="empty-state">
+                                <div className="empty-state-text">No completed sessions yet.</div>
+                            </div>
+                        )}
+                    </section>
 
-            {/* Recent Workouts List */}
-            <p className="section-subtitle">Recent Workouts</p>
-            {workoutLogs.length === 0 ? (
-                <div className="empty-state">
-                    <div className="empty-state-icon">📅</div>
-                    <div className="empty-state-text">No workouts logged yet.<br />Start a workout from the Program tab!</div>
-                </div>
-            ) : (
-                workoutLogs.slice(0, 10).map(log => (
-                    <div
-                        key={log.id}
-                        className="card mb-2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => setSelectedLog(log.id)}
-                    >
-                        <div className="flex justify-between items-center">
+                    <section className="card max-tracker-card animate-fade-in">
+                        <div className="calendar-card-top">
                             <div>
-                                <div style={{ fontSize: '14px', fontWeight: 600 }}>
-                                    Week {log.weekNumber} · {log.dayLabel}
-                                </div>
-                                <div className="text-sm text-muted">{new Date(log.date).toLocaleDateString()}</div>
+                                <p className="section-subtitle">1RM Tracking</p>
+                                <p className="calendar-card-stat">{`Updates program loads in ${settings.units}`}</p>
                             </div>
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontSize: '12px', color: 'var(--accent-green)' }}>
-                                    {log.entries.filter(e => !e.skipped).length} exercises
-                                </div>
-                                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-                                    {log.entries.reduce((sum, e) => sum + e.sets.filter(s => s.completed).length, 0)} sets
-                                </div>
-                            </div>
+                            {saved && <span className="badge badge-subtle">Saved</span>}
                         </div>
-                    </div>
-                ))
-            )}
+
+                        <div className="max-tracker-grid">
+                            <label className="input-group" htmlFor="calendar-squat-max">
+                                <span className="input-label">{`Squat ${settings.units}`}</span>
+                                <input
+                                    id="calendar-squat-max"
+                                    className="input input-compact"
+                                    type="number"
+                                    inputMode="decimal"
+                                    value={squat}
+                                    onChange={(event) => setSquat(event.target.value)}
+                                />
+                            </label>
+                            <label className="input-group" htmlFor="calendar-bench-max">
+                                <span className="input-label">{`Bench ${settings.units}`}</span>
+                                <input
+                                    id="calendar-bench-max"
+                                    className="input input-compact"
+                                    type="number"
+                                    inputMode="decimal"
+                                    value={bench}
+                                    onChange={(event) => setBench(event.target.value)}
+                                />
+                            </label>
+                            <label className="input-group" htmlFor="calendar-deadlift-max">
+                                <span className="input-label">{`Deadlift ${settings.units}`}</span>
+                                <input
+                                    id="calendar-deadlift-max"
+                                    className="input input-compact"
+                                    type="number"
+                                    inputMode="decimal"
+                                    value={deadlift}
+                                    onChange={(event) => setDeadlift(event.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <button className="btn btn-primary btn-full" onClick={handleSaveMaxes}>
+                            Save Maxes
+                        </button>
+
+                        <div className="max-tracker-summary">
+                            {(['squat', 'bench', 'deadlift'] as LiftKey[]).map((lift) => (
+                                <div key={lift} className="max-summary-row">
+                                    <span className="max-summary-label">{lift}</span>
+                                    <span className="max-summary-value">
+                                        {bestLogged[lift] !== null ? formatWeight(bestLogged[lift]!, settings.units) : '—'}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     );
 }

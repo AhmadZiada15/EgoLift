@@ -55,7 +55,7 @@ export function NudgeBanner({ uid, displayName, photoURL }: NudgeBannerProps) {
 
     const handleNudgeBack = async () => {
         try {
-            await sendNudge(uid, displayName, photoURL, currentNudge.from, '👊 Right back at you!');
+            await sendNudge(uid, displayName, photoURL, currentNudge.from, 'Right back at you.');
             setNudgedBack(true);
             setTimeout(() => handleDismiss(), 1500);
         } catch {
@@ -84,10 +84,10 @@ export function NudgeBanner({ uid, displayName, photoURL }: NudgeBannerProps) {
                     onClick={handleNudgeBack}
                     disabled={nudgedBack}
                 >
-                    {nudgedBack ? '✓ Sent' : '👊'}
+                    {nudgedBack ? 'Sent' : 'Reply'}
                 </button>
                 <button className="btn btn-ghost btn-sm" onClick={handleDismiss}>
-                    ✕
+                    Dismiss
                 </button>
             </div>
             {nudges.length > 1 && (

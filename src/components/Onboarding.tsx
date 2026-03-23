@@ -58,7 +58,7 @@ export function Onboarding() {
 
             {steps[step] === 'welcome' && (
                 <div className="onboarding-step slide-up">
-                    <div style={{ fontSize: '64px', marginBottom: '16px' }}>🏋️</div>
+                    <p className="program-eyebrow">Initial Setup</p>
                     <h1 className="onboarding-title">EgoLift</h1>
                     <p className="onboarding-subtitle">
                         16-Week Powerlifting Program<br />
@@ -85,7 +85,7 @@ export function Onboarding() {
                     )}
                     {user && (
                         <div className="auth-signed-in-badge">
-                            ✓ Signed in as {user.displayName || user.email}
+                            Signed in as {user.displayName || user.email}
                         </div>
                     )}
                     <button className="btn btn-primary btn-full" onClick={() => setStep(1)} style={{ marginTop: user ? '12px' : '8px' }}>
@@ -106,12 +106,12 @@ export function Onboarding() {
                         All weights will be displayed in your preferred unit
                     </p>
                     <div className="toggle-group">
-                        <div className={`toggle-option ${units === 'lbs' ? 'active' : ''}`} onClick={() => { setUnits('lbs'); setRounding('5'); }}>
+                        <button type="button" className={`toggle-option ${units === 'lbs' ? 'active' : ''}`} onClick={() => { setUnits('lbs'); setRounding('5'); }}>
                             Pounds (lbs)
-                        </div>
-                        <div className={`toggle-option ${units === 'kg' ? 'active' : ''}`} onClick={() => { setUnits('kg'); setRounding('2.5'); }}>
+                        </button>
+                        <button type="button" className={`toggle-option ${units === 'kg' ? 'active' : ''}`} onClick={() => { setUnits('kg'); setRounding('2.5'); }}>
                             Kilograms (kg)
-                        </div>
+                        </button>
                     </div>
                     <div className="flex gap-3 mt-4">
                         <button className="btn btn-secondary" onClick={() => setStep(0)}>Back</button>
@@ -193,9 +193,9 @@ export function Onboarding() {
 
                     <div className="pill-group mt-2">
                         {(units === 'lbs' ? ['2.5', '5', '10'] : ['1', '1.25', '2.5', '5']).map(v => (
-                            <div key={v} className={`pill ${rounding === v ? 'active' : ''}`} onClick={() => setRounding(v)}>
+                            <button type="button" key={v} className={`pill ${rounding === v ? 'active' : ''}`} onClick={() => setRounding(v)}>
                                 {v} {units}
-                            </div>
+                            </button>
                         ))}
                     </div>
 
@@ -232,7 +232,7 @@ export function Onboarding() {
                     <div className="flex gap-3 mt-4">
                         <button className="btn btn-secondary" onClick={() => setStep(3)}>Back</button>
                         <button className="btn btn-primary" style={{ flex: 1 }} onClick={handleComplete}>
-                            🚀 Start Training
+                            Start Training
                         </button>
                     </div>
                 </div>

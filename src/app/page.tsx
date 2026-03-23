@@ -1,15 +1,5 @@
-'use client';
-
-import { AuthProvider } from '@/lib/auth';
-import { AppProvider } from '@/lib/context';
-import { AppShell } from '@/components/AppShell';
+import { LandingPage } from '@/components/LandingPage';
 
 export default function Home() {
-  return (
-    <AuthProvider>
-      <AppProvider>
-        <AppShell />
-      </AppProvider>
-    </AuthProvider>
-  );
+  return <LandingPage />;
 }

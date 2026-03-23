@@ -9,21 +9,12 @@ interface ReactionToastProps {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-    PR: '#e53e3e',
-    PERFORMANCE: '#4299e1',
-    PHASE: '#9f7aea',
-    STREAK: '#ed8936',
-    NUDGE: '#ecc94b',
-    OBSERVATION: '#68d391',
-};
-
-const CATEGORY_ICONS: Record<string, string> = {
-    PR: '🏆',
-    PERFORMANCE: '📊',
-    PHASE: '📅',
-    STREAK: '🔥',
-    NUDGE: '👀',
-    OBSERVATION: '💭',
+    PR: '#c97b8e',
+    PERFORMANCE: '#f5ede0',
+    PHASE: '#c9b5a8',
+    STREAK: '#f5ede0',
+    NUDGE: '#c97b8e',
+    OBSERVATION: '#c9b5a8',
 };
 
 export function ReactionToast({ reactions, onDismiss }: ReactionToastProps) {
@@ -63,7 +54,6 @@ export function ReactionToast({ reactions, onDismiss }: ReactionToastProps) {
 
     const reaction = reactions[currentIndex];
     const accentColor = CATEGORY_COLORS[reaction.category] || 'var(--accent-red)';
-    const icon = CATEGORY_ICONS[reaction.category] || '💬';
 
     return (
         <div
@@ -80,7 +70,6 @@ export function ReactionToast({ reactions, onDismiss }: ReactionToastProps) {
                 <div className="reaction-toast-content">
                     {/* Category badge */}
                     <div className="reaction-toast-header">
-                        <span className="reaction-toast-icon">{icon}</span>
                         <span
                             className="reaction-toast-category"
                             style={{ color: accentColor }}
@@ -99,7 +88,7 @@ export function ReactionToast({ reactions, onDismiss }: ReactionToastProps) {
 
                     {/* Tap hint */}
                     <p className="reaction-toast-hint">
-                        {currentIndex < reactions.length - 1 ? 'tap for next' : 'tap to dismiss'}
+                        {currentIndex < reactions.length - 1 ? 'tap for next note' : 'tap to dismiss'}
                     </p>
                 </div>
             </div>

@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { useApp } from '@/lib/context';
-import { WorkoutLog, ExerciseLogEntry, SetLog, ExercisePrescription } from '@/lib/types';
-import { computeExerciseLoad, formatWeight, formatIntensity, estimateE1RM, weightFromE1RM } from '@/lib/calculations';
+import { WorkoutLog, ExerciseLogEntry, SetLog } from '@/lib/types';
+import { computeExerciseLoad, formatWeight, formatIntensity, formatSets, formatReps, estimateE1RM, weightFromE1RM } from '@/lib/calculations';
 import { evaluateReactions, getStreakMessage, calculateStreak, Reaction } from '@/lib/personality';
 import { detectAndPublishMilestones } from '@/lib/milestones';
 import { ReactionToast } from './ReactionToast';
@@ -24,6 +24,17 @@ function createEmptySet(index: number, weight: number | null, reps: number | nul
         rpe: null,
         completed: false,
     };
+}
+
+function isExerciseComplete(entry: ExerciseLogEntry): boolean {
+    return !entry.skipped && entry.sets.length > 0 && entry.sets.every((set) => set.completed);
+}
+
+function getExerciseStatus(entry: ExerciseLogEntry): 'skipped' | 'complete' | 'in-progress' | 'pending' {
+    if (entry.skipped) return 'skipped';
+    if (isExerciseComplete(entry)) return 'complete';
+    if (entry.sets.some((set) => set.completed || set.weight !== null || set.reps !== null || set.rpe !== null)) return 'in-progress';
+    return 'pending';
 }
 
 export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLoggerProps) {
@@ -54,17 +65,12 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
     });
 
     const [workoutNotes, setWorkoutNotes] = useState('');
-    const [expandedExercise, setExpandedExercise] = useState<number>(0);
+    const [activeExerciseIndex, setActiveExerciseIndex] = useState<number>(0);
     const startedAt = useMemo(() => new Date().toISOString(), []);
     const [showReactions, setShowReactions] = useState<Reaction[]>([]);
     const [isSaving, setIsSaving] = useState(false);
 
     if (!day || !settings) return null;
-
-    // Find previous workout for auto-fill
-    const prevWorkout = workoutLogs.find(
-        l => l.weekNumber === weekNumber && l.dayNumber === dayNumber && l.completedAt
-    );
 
     const updateSet = (exerciseIdx: number, setIdx: number, field: keyof SetLog, value: number | string | boolean | null) => {
         setEntries(prev => {
@@ -117,6 +123,23 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
 
     const completeSet = (exerciseIdx: number, setIdx: number) => {
         updateSet(exerciseIdx, setIdx, 'completed', true);
+    };
+
+    const setExerciseCompletion = (exerciseIdx: number, completed: boolean) => {
+        setEntries(prev => {
+            const next = [...prev];
+            const entry = { ...next[exerciseIdx] };
+            entry.sets = entry.sets.map((set) => ({ ...set, completed }));
+            next[exerciseIdx] = entry;
+            return next;
+        });
+    };
+
+    const toggleExerciseCompletion = (exerciseIdx: number) => {
+        const entry = entries[exerciseIdx];
+        if (!entry) return;
+        const shouldComplete = entry.sets.some((set) => !set.completed);
+        setExerciseCompletion(exerciseIdx, shouldComplete);
     };
 
     const handleSave = async () => {
@@ -189,197 +212,241 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
 
     const completedSets = entries.reduce((sum, e) => sum + e.sets.filter(s => s.completed).length, 0);
     const totalSets = entries.reduce((sum, e) => sum + (e.skipped ? 0 : e.sets.length), 0);
+    const completedExercises = entries.filter((entry) => entry.skipped || isExerciseComplete(entry)).length;
+    const activeEntry = entries[activeExerciseIndex] ?? entries[0];
+    const activePrescription = day.exercises[activeExerciseIndex] ?? day.exercises[0];
+
+    if (!activeEntry || !activePrescription) return null;
+
+    const activeLoad = activePrescription ? computeExerciseLoad(activePrescription, settings) : null;
+    const activeIsE1RM = activePrescription?.isE1RM;
+    const sessionProgress = totalSets ? Math.round((completedSets / totalSets) * 100) : 0;
+    const activeStatus = activeEntry ? getExerciseStatus(activeEntry) : 'pending';
+
+    let activeE1RMSuggestion: number | null = null;
+    if (activeIsE1RM && activeExerciseIndex > 0) {
+        const topSetEntry = entries[activeExerciseIndex - 1];
+        if (topSetEntry && !topSetEntry.skipped) {
+            const completedTopSet = topSetEntry.sets.find((set) => set.completed && set.weight && set.reps);
+            if (completedTopSet?.weight && completedTopSet?.reps) {
+                activeE1RMSuggestion = estimateE1RM(completedTopSet.weight, completedTopSet.reps);
+            }
+        }
+    }
 
     return (
-        <div className="app-container" style={{ paddingBottom: '100px' }}>
-            {/* Header */}
-            <div className="app-header" style={{ justifyContent: 'space-between', padding: '0 16px' }}>
-                <button className="btn btn-ghost btn-sm" onClick={onFinish}>✕ Cancel</button>
-                <h1 style={{
-                    fontSize: '14px', color: 'var(--text-secondary)', fontWeight: 600,
-                    background: 'none', WebkitTextFillColor: 'var(--text-secondary)', WebkitBackgroundClip: 'unset'
-                }}>
-                    W{weekNumber} · {day.dayLabel}
-                </h1>
-                <button className="btn btn-ghost btn-sm" style={{ color: 'var(--accent-green)' }} onClick={handleSave}>
-                    ✓ Save
-                </button>
+        <div className="app-container workout-logger-page" style={{ paddingBottom: '120px' }}>
+            <div className="app-header workout-logger-header">
+                <button className="btn btn-ghost btn-sm" onClick={onFinish}>Back</button>
+                <h1 className="workout-logger-header-title">{`Week ${weekNumber} · ${day.dayLabel}`}</h1>
+                <button className="btn btn-ghost btn-sm" onClick={handleSave} disabled={isSaving}>Save</button>
             </div>
 
             <div className="page-content">
-                {/* Progress */}
-                <div className="card-highlight mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <div className="stat-value" style={{ fontSize: '24px' }}>{completedSets}/{totalSets}</div>
-                        <div className="stat-label">Sets Completed</div>
+                <section className="workout-focus animate-slide-up">
+                    <p className="program-eyebrow">{`Week ${weekNumber} · Day ${dayNumber}`}</p>
+                    <div className="workout-focus-topline">
+                        <span className="workout-focus-index">{`Exercise ${activeExerciseIndex + 1} of ${entries.length}`}</span>
+                        <span className={`workout-focus-status workout-focus-status-${activeStatus}`}>{activeStatus.replace('-', ' ')}</span>
                     </div>
-                    <div style={{
-                        width: '60px', height: '60px', borderRadius: '50%',
-                        background: `conic-gradient(var(--accent-red) ${totalSets ? (completedSets / totalSets * 360) : 0}deg, var(--bg-card) 0deg)`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                        <div style={{
-                            width: '48px', height: '48px', borderRadius: '50%', background: 'var(--bg-primary)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '12px', fontWeight: 700,
-                        }}>
-                            {totalSets ? Math.round(completedSets / totalSets * 100) : 0}%
+                    <h2 className="workout-focus-title">{activeEntry.exerciseName}</h2>
+                    <div className="workout-focus-meta">
+                        <span>{`${formatSets(activePrescription?.sets ?? null)} sets`}</span>
+                        <span>&middot;</span>
+                        <span>{`${formatReps(activePrescription?.reps ?? null)} reps`}</span>
+                        <span>&middot;</span>
+                        <span>{formatIntensity(activePrescription?.intensity ?? null)}</span>
+                        {activeLoad && (
+                            <>
+                                <span>&middot;</span>
+                                <span>{formatWeight(activeLoad.rounded, settings.units)}</span>
+                            </>
+                        )}
+                    </div>
+                    {activeLoad && (
+                        <div className="workout-suggested-load">
+                            <span className="workout-suggested-label">Suggested</span>
+                            <span className="workout-suggested-value">{formatWeight(activeLoad.rounded, settings.units)}</span>
+                            <span className="workout-suggested-copy">You can edit any set if you lift something different.</span>
+                        </div>
+                    )}
+                    {activeIsE1RM && activeE1RMSuggestion && activePrescription && typeof activePrescription.intensity === 'number' && (
+                        <p className="workout-e1rm-note">
+                            {`E1RM suggestion ${formatWeight(weightFromE1RM(activeE1RMSuggestion, activePrescription.intensity, settings.roundingIncrement).rounded, settings.units)}`}
+                        </p>
+                    )}
+                    <div className="workout-progress-block">
+                        <div className="workout-progress-track" aria-hidden="true">
+                            <div className="workout-progress-fill" style={{ width: `${sessionProgress}%` }} />
+                        </div>
+                        <div className="workout-progress-meta">
+                            <span>{`${completedSets}/${totalSets} sets complete`}</span>
+                            <span>{`${completedExercises}/${entries.length} exercises closed`}</span>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                {/* Exercise List */}
-                {entries.map((entry, exerciseIdx) => {
-                    const prescription = day.exercises[exerciseIdx];
-                    const load = prescription ? computeExerciseLoad(prescription, settings) : null;
-                    const isExpanded = expandedExercise === exerciseIdx;
-                    const isE1RM = prescription?.isE1RM;
-
-                    // Calculate E1RM from top set if available
-                    let e1rmSuggestion: number | null = null;
-                    if (isE1RM && exerciseIdx > 0) {
-                        // Look at the previous exercise entry (the top set) for the E1RM calculation
-                        const topSetEntry = entries[exerciseIdx - 1];
-                        if (topSetEntry && !topSetEntry.skipped) {
-                            const completedTopSet = topSetEntry.sets.find(s => s.completed && s.weight && s.reps);
-                            if (completedTopSet && completedTopSet.weight && completedTopSet.reps) {
-                                e1rmSuggestion = estimateE1RM(completedTopSet.weight, completedTopSet.reps);
-                            }
-                        }
-                    }
-
-                    return (
-                        <div key={entry.id} className={`card mb-2 ${entry.skipped ? '' : ''}`} style={{
-                            opacity: entry.skipped ? 0.5 : 1,
-                            transition: 'opacity 0.2s ease',
-                        }}>
-                            {/* Exercise Header */}
-                            <div
-                                className="flex justify-between items-center"
-                                style={{ cursor: 'pointer', marginBottom: isExpanded ? '12px' : 0 }}
-                                onClick={() => setExpandedExercise(isExpanded ? -1 : exerciseIdx)}
-                            >
-                                <div style={{ flex: 1 }}>
-                                    <div className="exercise-name" style={{ marginBottom: '2px' }}>{entry.exerciseName}</div>
-                                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                                        {prescription && `${formatIntensity(prescription.intensity)}`}
-                                        {load && ` · ${formatWeight(load.rounded, settings.units)}`}
-                                        {isE1RM && e1rmSuggestion && prescription && typeof prescription.intensity === 'number' && (
-                                            <span style={{ color: 'var(--accent-amber)' }}>
-                                                {' '}· E1RM suggest: {formatWeight(weightFromE1RM(e1rmSuggestion, prescription.intensity, settings.roundingIncrement).rounded, settings.units)}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 items-center">
-                                    <button
-                                        className="btn btn-ghost btn-sm"
-                                        onClick={e => { e.stopPropagation(); toggleSkip(exerciseIdx); }}
-                                        style={{ color: entry.skipped ? 'var(--accent-red)' : 'var(--text-muted)', fontSize: '11px' }}
-                                    >
-                                        {entry.skipped ? 'Unskip' : 'Skip'}
-                                    </button>
-                                    <span style={{ fontSize: '16px', color: 'var(--text-muted)', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : '' }}>
-                                        ▼
-                                    </span>
-                                </div>
+                <section className="card workout-set-editor animate-fade-in">
+                    <div className="workout-set-editor-top">
+                        <div>
+                            <p className="section-subtitle">Set Logging</p>
+                            <p className="workout-set-editor-copy">Edit weights as needed, then check off each set or complete the whole exercise.</p>
+                        </div>
+                        <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => toggleExerciseCompletion(activeExerciseIndex)}
+                        >
+                            {isExerciseComplete(activeEntry) ? 'Reset Exercise' : 'Complete Exercise'}
+                        </button>
+                    </div>
+                    {activeEntry.skipped ? (
+                        <div className="workout-skipped-state">
+                            <p className="workout-skipped-copy">This exercise is currently skipped.</p>
+                            <button className="btn btn-secondary btn-sm" onClick={() => toggleSkip(activeExerciseIndex)}>
+                                Return Exercise
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                            <div className="workout-set-grid-header">
+                                <div>#</div>
+                                <div>{settings.units}</div>
+                                <div>Reps</div>
+                                <div>RPE</div>
+                                <div aria-hidden="true" />
                             </div>
 
-                            {/* Set Logging */}
-                            {isExpanded && !entry.skipped && (
-                                <div className="fade-in">
-                                    {/* Column headers */}
-                                    <div className="set-row" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '4px', marginBottom: '4px' }}>
-                                        <div className="set-number" style={{ background: 'transparent', fontSize: '10px', color: 'var(--text-muted)' }}>SET</div>
-                                        <div className="set-input"><div style={{ textAlign: 'center', fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600 }}>WEIGHT ({settings.units})</div></div>
-                                        <div className="set-input"><div style={{ textAlign: 'center', fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600 }}>REPS</div></div>
-                                        <div className="set-input" style={{ maxWidth: '60px' }}><div style={{ textAlign: 'center', fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600 }}>RPE</div></div>
-                                        <div style={{ width: '56px' }}></div>
+                            {activeEntry.sets.map((set, setIdx) => (
+                                <div key={setIdx} className="workout-set-grid-row">
+                                    <div className={`set-number ${set.completed ? 'completed' : ''}`}>{setIdx + 1}</div>
+                                    <div className="set-input">
+                                        <input
+                                            aria-label={`Weight set ${setIdx + 1}`}
+                                            type="number"
+                                            inputMode="decimal"
+                                            placeholder={activeLoad ? String(activeLoad.rounded) : '—'}
+                                            value={set.weight ?? ''}
+                                            onChange={e => updateSet(activeExerciseIndex, setIdx, 'weight', e.target.value ? parseFloat(e.target.value) : null)}
+                                        />
                                     </div>
-
-                                    {entry.sets.map((set, setIdx) => (
-                                        <div key={setIdx} className="set-row">
-                                            <div className={`set-number ${set.completed ? 'completed' : ''}`}>{setIdx + 1}</div>
-                                            <div className="set-input">
-                                                <input
-                                                    type="number"
-                                                    inputMode="decimal"
-                                                    placeholder={load ? String(load.rounded) : '—'}
-                                                    value={set.weight ?? ''}
-                                                    onChange={e => updateSet(exerciseIdx, setIdx, 'weight', e.target.value ? parseFloat(e.target.value) : null)}
-                                                />
-                                            </div>
-                                            <div className="set-input">
-                                                <input
-                                                    type="number"
-                                                    inputMode="numeric"
-                                                    placeholder={prescription?.reps ? String(prescription.reps) : '—'}
-                                                    value={set.reps ?? ''}
-                                                    onChange={e => updateSet(exerciseIdx, setIdx, 'reps', e.target.value ? parseInt(e.target.value) : null)}
-                                                />
-                                            </div>
-                                            <div className="set-input" style={{ maxWidth: '60px' }}>
-                                                <input
-                                                    type="number"
-                                                    inputMode="decimal"
-                                                    placeholder="—"
-                                                    value={set.rpe ?? ''}
-                                                    onChange={e => updateSet(exerciseIdx, setIdx, 'rpe', e.target.value ? parseFloat(e.target.value) : null)}
-                                                />
-                                            </div>
-                                            <div className="flex gap-1">
-                                                {!set.completed ? (
-                                                    <button
-                                                        className="btn btn-icon btn-sm"
-                                                        style={{ background: 'var(--accent-green)', color: 'black', width: '28px', height: '28px', fontSize: '12px' }}
-                                                        onClick={() => completeSet(exerciseIdx, setIdx)}
-                                                        title="Complete set"
-                                                    >✓</button>
-                                                ) : (
-                                                    <button
-                                                        className="btn btn-icon btn-sm"
-                                                        style={{ background: 'var(--bg-card)', color: 'var(--text-muted)', width: '28px', height: '28px', fontSize: '12px' }}
-                                                        onClick={() => updateSet(exerciseIdx, setIdx, 'completed', false)}
-                                                        title="Undo"
-                                                    >↩</button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    ))}
-
-                                    {/* Actions */}
-                                    <div className="flex gap-2 mt-2">
-                                        <button className="btn btn-secondary btn-sm" onClick={() => addSet(exerciseIdx)}>
-                                            + Add Set
-                                        </button>
-                                        {entry.sets.length > 1 && (
-                                            <button className="btn btn-ghost btn-sm" onClick={() => removeSet(exerciseIdx, entry.sets.length - 1)}>
-                                                − Remove
-                                            </button>
-                                        )}
-                                        {entry.sets.length > 1 && (
+                                    <div className="set-input">
+                                        <input
+                                            aria-label={`Reps set ${setIdx + 1}`}
+                                            type="number"
+                                            inputMode="numeric"
+                                            placeholder={activePrescription?.reps ? String(activePrescription.reps) : '—'}
+                                            value={set.reps ?? ''}
+                                            onChange={e => updateSet(activeExerciseIndex, setIdx, 'reps', e.target.value ? parseInt(e.target.value) : null)}
+                                        />
+                                    </div>
+                                    <div className="set-input workout-rpe-input">
+                                        <input
+                                            aria-label={`RPE set ${setIdx + 1}`}
+                                            type="number"
+                                            inputMode="decimal"
+                                            placeholder="—"
+                                            value={set.rpe ?? ''}
+                                            onChange={e => updateSet(activeExerciseIndex, setIdx, 'rpe', e.target.value ? parseFloat(e.target.value) : null)}
+                                        />
+                                    </div>
+                                    <div className="workout-set-action">
+                                        {!set.completed ? (
                                             <button
-                                                className="btn btn-ghost btn-sm"
-                                                onClick={() => {
-                                                    const lastIdx = entry.sets.length - 1;
-                                                    if (lastIdx > 0) copyPreviousSet(exerciseIdx, lastIdx);
-                                                }}
+                                                className="btn btn-icon btn-sm workout-complete-set"
+                                                onClick={() => completeSet(activeExerciseIndex, setIdx)}
+                                                title="Complete set"
+                                                aria-label={`Complete set ${setIdx + 1}`}
                                             >
-                                                📋 Copy Prev
+                                                Done
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-icon btn-sm workout-undo-set"
+                                                onClick={() => updateSet(activeExerciseIndex, setIdx, 'completed', false)}
+                                                title="Undo set"
+                                                aria-label={`Undo set ${setIdx + 1}`}
+                                            >
+                                                Undo
                                             </button>
                                         )}
                                     </div>
                                 </div>
-                            )}
-                        </div>
-                    );
-                })}
+                            ))}
+
+                            <div className="workout-row-actions">
+                                <button className="btn btn-secondary btn-sm" onClick={() => addSet(activeExerciseIndex)}>
+                                    Add Set
+                                </button>
+                                {activeEntry.sets.length > 1 && (
+                                    <button className="btn btn-ghost btn-sm" onClick={() => removeSet(activeExerciseIndex, activeEntry.sets.length - 1)}>
+                                        Remove Last
+                                    </button>
+                                )}
+                                {activeEntry.sets.length > 1 && (
+                                    <button
+                                        className="btn btn-ghost btn-sm"
+                                        onClick={() => {
+                                            const lastIdx = activeEntry.sets.length - 1;
+                                            if (lastIdx > 0) copyPreviousSet(activeExerciseIndex, lastIdx);
+                                        }}
+                                    >
+                                        Copy Prev
+                                    </button>
+                                )}
+                                <button className="btn btn-ghost btn-sm" onClick={() => toggleSkip(activeExerciseIndex)}>
+                                    Skip Exercise
+                                </button>
+                            </div>
+                        </>
+                    )}
+                </section>
+
+                <div className="program-divider" />
+
+                <section className="workout-sequence animate-fade-in">
+                    <p className="section-subtitle">Session Flow</p>
+                    <div className="workout-sequence-list">
+                        {entries.map((entry, exerciseIdx) => {
+                            const status = getExerciseStatus(entry);
+                            const completedSetCount = entry.sets.filter((set) => set.completed).length;
+                            const exercisePrescription = day.exercises[exerciseIdx];
+
+                            return (
+                                <button
+                                    key={entry.id}
+                                    type="button"
+                                    className={`workout-sequence-item ${activeExerciseIndex === exerciseIdx ? 'active' : ''}`}
+                                    onClick={() => {
+                                        if (activeExerciseIndex === exerciseIdx) {
+                                            toggleExerciseCompletion(exerciseIdx);
+                                            return;
+                                        }
+
+                                        setActiveExerciseIndex(exerciseIdx);
+                                    }}
+                                >
+                                    <div className="workout-sequence-copy">
+                                        <div className="workout-sequence-name">{entry.exerciseName}</div>
+                                        <div className="workout-sequence-meta">
+                                            {`${formatSets(exercisePrescription?.sets ?? null)} x ${formatReps(exercisePrescription?.reps ?? null)}`}
+                                        </div>
+                                    </div>
+                                    <div className="workout-sequence-right">
+                                        <span className={`workout-sequence-status workout-sequence-status-${status}`}>{status.replace('-', ' ')}</span>
+                                        <span className="workout-sequence-count">{`${completedSetCount}/${entry.sets.length}`}</span>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </section>
 
                 {/* Notes */}
-                <div className="card mt-4">
+                <div className="card mt-4 workout-notes-card">
                     <div className="input-group">
-                        <label className="input-label">Workout Notes</label>
+                        <label className="input-label" htmlFor="workout-notes">Workout Notes</label>
                         <textarea
+                            id="workout-notes"
                             className="input"
                             rows={3}
                             placeholder="How did the session feel? Any notes..."
@@ -391,8 +458,8 @@ export function WorkoutLogger({ weekNumber, dayNumber, onFinish }: WorkoutLogger
                 </div>
 
                 {/* Save Button */}
-                <button className="btn btn-primary btn-full mt-4" onClick={handleSave} style={{ marginBottom: '24px' }} disabled={isSaving}>
-                    {isSaving ? '⏳ Saving...' : '✓ Complete Workout'}
+                <button className="btn btn-primary btn-full mt-4 workout-finish-button" onClick={handleSave} style={{ marginBottom: '24px' }} disabled={isSaving}>
+                    {isSaving ? 'Saving Session...' : 'Finish Session'}
                 </button>
             </div>
 

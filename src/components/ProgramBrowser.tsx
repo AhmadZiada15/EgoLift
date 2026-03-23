@@ -1,142 +1,217 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useApp } from '@/lib/context';
-import { computeExerciseLoad, formatIntensity, formatSets, formatReps, formatWeight } from '@/lib/calculations';
+import { computeExerciseLoad, formatIntensity, formatReps, formatSets, formatWeight } from '@/lib/calculations';
+import { getCompletedWorkoutSet, getCurrentProgramSelection, getWorkoutKey } from '@/lib/program-state';
 
 interface ProgramBrowserProps {
     onStartWorkout: (weekNumber: number, dayNumber: number) => void;
 }
 
+function getCompactExerciseName(name: string): string {
+    const normalized = name.toLowerCase();
+    if (normalized.includes('overhead')) return 'OHP';
+    if (normalized.includes('paused bench')) return 'Pause Bench';
+    if (normalized.includes('bench')) return 'Bench';
+    if (normalized.includes('squat')) return 'Squat';
+    if (normalized.includes('deadlift')) return 'Deadlift';
+    if (normalized.includes('row')) return 'Row';
+    return name.replace(/^competition\s+/i, '').trim();
+}
+
+function getSessionTitle(dayLabel: string, exerciseName?: string): string {
+    if (/^week\s*\d+\s*[,.-]?\s*day\s*\d+$/i.test(dayLabel) && exerciseName) {
+        return `${getCompactExerciseName(exerciseName)} Day`;
+    }
+
+    return dayLabel;
+}
+
+function getSessionContext(weekNumber: number, dayNumber: number, weekLabel: string, dayLabel: string): string {
+    const compact = `W${weekNumber} · D${dayNumber}`;
+    const normalizedWeekLabel = weekLabel.trim().toLowerCase();
+    const normalizedDayLabel = dayLabel.trim().toLowerCase();
+
+    if (
+        normalizedWeekLabel === normalizedDayLabel ||
+        /^week\s*\d+\s*[,.-]?\s*day\s*\d+$/i.test(weekLabel) ||
+        /^week\s*\d+$/i.test(weekLabel)
+    ) {
+        return compact;
+    }
+
+    return `${compact} · ${weekLabel}`;
+}
+
+function getWeekTitle(weekNumber: number): string {
+    return weekNumber === 16 ? 'Taper' : `Week ${weekNumber}`;
+}
+
 export function ProgramBrowser({ onStartWorkout }: ProgramBrowserProps) {
     const { program, settings, workoutLogs } = useApp();
-    const [selectedWeek, setSelectedWeek] = useState(1);
-    const [selectedDay, setSelectedDay] = useState(1);
+    const currentSelection = useMemo(() => getCurrentProgramSelection(program, workoutLogs), [program, workoutLogs]);
+    const [selectedWeek, setSelectedWeek] = useState<number>(() => currentSelection?.week.weekNumber ?? 1);
+    const [selectedDay, setSelectedDay] = useState<number>(() => currentSelection?.day.dayNumber ?? 1);
 
-    const week = useMemo(() => program?.weeks.find(w => w.weekNumber === selectedWeek), [program, selectedWeek]);
-    const day = useMemo(() => week?.days.find(d => d.dayNumber === selectedDay), [week, selectedDay]);
+    const week = useMemo(() => program?.weeks.find((item) => item.weekNumber === selectedWeek), [program, selectedWeek]);
+    const day = useMemo(() => week?.days.find((item) => item.dayNumber === selectedDay), [week, selectedDay]);
+    const completedWorkouts = useMemo(() => getCompletedWorkoutSet(workoutLogs), [workoutLogs]);
 
-    const completedWorkouts = useMemo(() => {
-        const set = new Set<string>();
-        workoutLogs.forEach(log => {
-            if (log.completedAt) set.add(`${log.weekNumber}-${log.dayNumber}`);
-        });
-        return set;
-    }, [workoutLogs]);
+    useEffect(() => {
+        if (!program || !currentSelection) return;
 
-    if (!program || !settings) return null;
+        const validWeek = program.weeks.some((item) => item.weekNumber === selectedWeek);
+        if (!validWeek) {
+            setSelectedWeek(currentSelection.week.weekNumber);
+            setSelectedDay(currentSelection.day.dayNumber);
+            return;
+        }
 
-    const isCompleted = completedWorkouts.has(`${selectedWeek}-${selectedDay}`);
+        const nextWeek = program.weeks.find((item) => item.weekNumber === selectedWeek);
+        const validDay = nextWeek?.days.some((item) => item.dayNumber === selectedDay);
 
+        if (!validDay) {
+            setSelectedDay(nextWeek?.days[0]?.dayNumber ?? currentSelection.day.dayNumber);
+        }
+    }, [currentSelection, program, selectedDay, selectedWeek]);
+
+    if (!program || !settings || !week || !day) return null;
+
+    const sessionTitle = getSessionTitle(day.dayLabel, day.exercises[0]?.name);
+    const sessionContext = getSessionContext(selectedWeek, selectedDay, week.weekLabel, day.dayLabel);
+    const isCompleted = completedWorkouts.has(getWorkoutKey(selectedWeek, selectedDay));
     return (
-        <div>
-            <h2 className="section-title">Program</h2>
-
-            {/* Week Selector */}
-            <p className="section-subtitle">Week</p>
-            <div className="overflow-x mb-4" style={{ paddingBottom: '4px' }}>
-                <div className="pill-group" style={{ flexWrap: 'nowrap', minWidth: 'max-content' }}>
-                    {program.weeks.map(w => (
-                        <div
-                            key={w.weekNumber}
-                            className={`pill ${selectedWeek === w.weekNumber ? 'active' : ''}`}
-                            onClick={() => { setSelectedWeek(w.weekNumber); setSelectedDay(1); }}
-                            style={{ position: 'relative' }}
-                        >
-                            {w.weekNumber === 16 ? 'Taper' : `W${w.weekNumber}`}
-                            {w.days.every(d => completedWorkouts.has(`${w.weekNumber}-${d.dayNumber}`)) && (
-                                <span style={{ position: 'absolute', top: '-4px', right: '-4px', fontSize: '10px' }}>✅</span>
-                            )}
-                        </div>
-                    ))}
+        <div className="program-overview-screen">
+            <section className="program-overview-hero animate-slide-up">
+                <div>
+                    <p className="program-eyebrow">Program Overview</p>
+                    <h2 className="program-hero-title">{sessionTitle}</h2>
+                    <p className="program-overview-subcopy">{sessionContext}</p>
                 </div>
-            </div>
+                <button
+                    className="btn btn-outline program-overview-start"
+                    onClick={() => onStartWorkout(selectedWeek, selectedDay)}
+                >
+                    {isCompleted ? 'Repeat' : 'Start'}
+                </button>
+            </section>
 
-            {/* Day Selector */}
-            {week && (
-                <>
-                    <p className="section-subtitle">{week.weekLabel}</p>
-                    <div className="pill-group mb-4">
-                        {week.days.map(d => (
-                            <div
-                                key={d.dayNumber}
-                                className={`pill ${selectedDay === d.dayNumber ? 'active' : ''}`}
-                                onClick={() => setSelectedDay(d.dayNumber)}
-                                style={{ position: 'relative' }}
-                            >
-                                {d.dayLabel}
-                                {completedWorkouts.has(`${selectedWeek}-${d.dayNumber}`) && (
-                                    <span style={{ position: 'absolute', top: '-4px', right: '-4px', fontSize: '10px' }}>✅</span>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </>
-            )}
-
-            {/* Day Plan */}
-            {day && (
-                <div className="card fade-in">
-                    <div className="flex justify-between items-center mb-4">
-                        <h3 style={{ fontSize: '16px', fontWeight: 700 }}>
-                            Week {selectedWeek} · {day.dayLabel}
-                        </h3>
-                        {isCompleted && (
-                            <span style={{ fontSize: '12px', color: 'var(--accent-green)', fontWeight: 600 }}>
-                                ✓ Completed
-                            </span>
-                        )}
+            <div className="program-overview-layout">
+                <section className="card program-week-browser animate-fade-in">
+                    <div className="program-browser-card-header">
+                        <div>
+                            <p className="section-subtitle">{getWeekTitle(selectedWeek)}</p>
+                            <p className="program-card-copy">{`Selected: Day ${selectedDay} · ${sessionTitle}`}</p>
+                        </div>
                     </div>
 
-                    {day.exercises.map((exercise, idx) => {
-                        const load = computeExerciseLoad(exercise, settings);
-                        return (
-                            <div key={exercise.id} className="exercise-row" style={{ animationDelay: `${idx * 50}ms` }}>
-                                <div className="exercise-name">{exercise.name}</div>
-                                <div className="exercise-details">
-                                    <div className="exercise-detail">
-                                        <span className="label">Sets</span>
-                                        <span className="value">{formatSets(exercise.sets)}</span>
-                                    </div>
-                                    <div className="exercise-detail">
-                                        <span className="label">Reps</span>
-                                        <span className="value">{formatReps(exercise.reps)}</span>
-                                    </div>
-                                    <div className="exercise-detail">
-                                        <span className="label">Intensity</span>
-                                        <span className="value exercise-intensity">{formatIntensity(exercise.intensity)}</span>
-                                    </div>
-                                    {load && (
-                                        <div className="exercise-detail">
-                                            <span className="label">Load</span>
-                                            <span className="value exercise-load">{formatWeight(load.rounded, settings.units)}</span>
+                    <div className="program-week-list">
+                        {program.weeks.map((weekItem) => {
+                            const isOpen = selectedWeek === weekItem.weekNumber;
+                            const completedDays = weekItem.days.filter((dayItem) =>
+                                completedWorkouts.has(getWorkoutKey(weekItem.weekNumber, dayItem.dayNumber))
+                            ).length;
+
+                            return (
+                                <div key={weekItem.weekNumber} className={`program-week-group ${isOpen ? 'open' : ''}`}>
+                                    <button
+                                        type="button"
+                                        className={`program-week-button ${isOpen ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setSelectedWeek(weekItem.weekNumber);
+                                            setSelectedDay(weekItem.days[0]?.dayNumber ?? 1);
+                                        }}
+                                    >
+                                        <div className="program-week-button-copy">
+                                            <span className="program-week-button-title">{getWeekTitle(weekItem.weekNumber)}</span>
+                                            <span className="program-week-button-meta">{`${completedDays}/${weekItem.days.length} done`}</span>
                                         </div>
-                                    )}
-                                    {exercise.tempo && (
-                                        <div className="exercise-detail">
-                                            <span className="label">Tempo</span>
-                                            <span className="value">{exercise.tempo}</span>
-                                        </div>
-                                    )}
-                                    {exercise.restSeconds && (
-                                        <div className="exercise-detail">
-                                            <span className="label">Rest</span>
-                                            <span className="value">{exercise.restSeconds >= 60 ? `${exercise.restSeconds / 60}m` : `${exercise.restSeconds}s`}</span>
+                                        <span className="program-week-button-toggle" aria-hidden="true">
+                                            {isOpen ? '−' : '+'}
+                                        </span>
+                                    </button>
+
+                                    {isOpen && (
+                                        <div className="program-week-focus-window">
+                                            {weekItem.days.map((dayItem) => {
+                                                const dayKey = getWorkoutKey(weekItem.weekNumber, dayItem.dayNumber);
+                                                const dayComplete = completedWorkouts.has(dayKey);
+                                                const isSelectedDay = selectedDay === dayItem.dayNumber;
+                                                const dayTitle = getSessionTitle(dayItem.dayLabel, dayItem.exercises[0]?.name);
+
+                                                return (
+                                                    <div
+                                                        key={dayKey}
+                                                        className={`program-day-panel ${isSelectedDay ? 'active' : ''}`}
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            className={`program-day-button ${isSelectedDay ? 'active' : ''}`}
+                                                            onClick={() => setSelectedDay(dayItem.dayNumber)}
+                                                        >
+                                                            <div className="program-day-button-copy">
+                                                                <span className="program-day-button-kicker">{`Day ${dayItem.dayNumber}`}</span>
+                                                                <span className="program-day-button-title">{dayTitle}</span>
+                                                            </div>
+                                                            <span className={`program-day-button-status ${dayComplete ? 'done' : 'open'}`}>
+                                                                {dayComplete ? 'Logged' : 'Open'}
+                                                            </span>
+                                                        </button>
+
+                                                        {isSelectedDay && (
+                                                            <div className="program-day-expanded">
+                                                                <div className="program-day-expanded-header">
+                                                                    <div>
+                                                                        <p className="program-day-expanded-kicker">{`Day ${dayItem.dayNumber}`}</p>
+                                                                        <h3 className="program-day-expanded-title">{dayTitle}</h3>
+                                                                    </div>
+                                                                    <button
+                                                                        className="btn btn-secondary btn-sm"
+                                                                        onClick={() => onStartWorkout(weekItem.weekNumber, dayItem.dayNumber)}
+                                                                    >
+                                                                        {dayComplete ? 'Repeat' : 'Start'}
+                                                                    </button>
+                                                                </div>
+
+                                                                <div className="program-day-exercise-list">
+                                                                    {dayItem.exercises.map((exercise) => {
+                                                                        const load = computeExerciseLoad(exercise, settings);
+
+                                                                        return (
+                                                                            <div key={exercise.id} className="program-day-exercise-row">
+                                                                                <div>
+                                                                                    <div className="program-day-exercise-name">{exercise.name}</div>
+                                                                                    <div className="program-day-exercise-meta">
+                                                                                        <span>{`${formatSets(exercise.sets)} x ${formatReps(exercise.reps)}`}</span>
+                                                                                        <span>{formatIntensity(exercise.intensity)}</span>
+                                                                                        {exercise.restSeconds && (
+                                                                                            <span>
+                                                                                                {exercise.restSeconds >= 60 ? `${exercise.restSeconds / 60}m rest` : `${exercise.restSeconds}s rest`}
+                                                                                            </span>
+                                                                                        )}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="program-day-exercise-load">
+                                                                                    {load ? formatWeight(load.rounded, settings.units) : '—'}
+                                                                                </div>
+                                                                            </div>
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     )}
                                 </div>
-                            </div>
-                        );
-                    })}
-
-                    <button
-                        className="btn btn-primary btn-full mt-4"
-                        onClick={() => onStartWorkout(selectedWeek, selectedDay)}
-                    >
-                        {isCompleted ? '🔄 Log Again' : '🏋️ Start Workout'}
-                    </button>
-                </div>
-            )}
+                            );
+                        })}
+                    </div>
+                </section>
+            </div>
         </div>
     );
 }

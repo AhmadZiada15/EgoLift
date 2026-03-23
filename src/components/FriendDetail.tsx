@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { FriendWithProfile, WorkoutLog, UserSettings } from '@/lib/types';
 import { getFriendSettings, getFriendWorkoutLogs } from '@/lib/friends';
-import { formatWeight, convertWeight } from '@/lib/calculations';
+import { convertWeight } from '@/lib/calculations';
 import { User } from 'firebase/auth';
 
 interface FriendDetailProps {
@@ -14,6 +14,7 @@ interface FriendDetailProps {
 }
 
 export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDetailProps) {
+    void currentUser;
     const [settings, setSettings] = useState<UserSettings | null>(null);
     const [logs, setLogs] = useState<WorkoutLog[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
     const handleNudge = async () => {
         setSending(true);
         try {
-            await onNudge(nudgeMsg || "Let's lift! 💪");
+            await onNudge(nudgeMsg || 'Lets lift.');
             setNudgeSent(true);
             setNudgeMsg('');
             setTimeout(() => setNudgeSent(false), 3000);
@@ -55,14 +56,15 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
     };
 
     return (
-        <div>
+        <div className="friend-detail-screen">
             {/* Header */}
             <div className="friend-detail-header">
-                <button className="btn btn-ghost btn-sm" onClick={onBack}>← Back</button>
+                <button className="btn btn-ghost btn-sm" onClick={onBack}>Back</button>
             </div>
 
             {/* Profile Card */}
             <div className="card mb-4 friend-profile-card">
+                <p className="program-eyebrow">Friend Profile</p>
                 <div className="friend-profile-top">
                     <div className="friend-avatar-lg">
                         {friend.photoURL ? (
@@ -75,7 +77,7 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
                         <h3 className="friend-profile-name">{friend.displayName}</h3>
                         <div className="friend-profile-meta">
                             {friend.weekProgress && <span className="friend-card-week">{friend.weekProgress}</span>}
-                            {(friend.currentStreak ?? 0) > 0 && <span>🔥 {friend.currentStreak} streak</span>}
+                            {(friend.currentStreak ?? 0) > 0 && <span>{friend.currentStreak} streak</span>}
                         </div>
                     </div>
                 </div>
@@ -90,7 +92,7 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
                     {/* Training Maxes */}
                     {settings && (
                         <div className="card mb-4">
-                            <p className="input-label mb-3">Training Maxes</p>
+                            <p className="section-subtitle">Training Maxes</p>
                             <div className="friend-maxes-grid">
                                 <div className="friend-max-item">
                                     <div className="friend-max-label">Squat</div>
@@ -125,11 +127,12 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
 
                     {/* Nudge Card */}
                     <div className="card mb-4 nudge-card">
-                        <p className="input-label mb-2">Send a Nudge 👊</p>
+                        <p className="section-subtitle">Send a Nudge</p>
                         <div className="nudge-input-row">
                             <input
                                 className="input input-compact"
-                                placeholder="Let's lift! 💪"
+                                aria-label="Nudge message"
+                                placeholder="Lets lift."
                                 value={nudgeMsg}
                                 onChange={(e) => setNudgeMsg(e.target.value)}
                                 maxLength={100}
@@ -139,7 +142,7 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
                                 onClick={handleNudge}
                                 disabled={sending || nudgeSent}
                             >
-                                {nudgeSent ? '✓ Sent!' : sending ? '...' : '👊'}
+                                {nudgeSent ? 'Sent' : sending ? 'Sending...' : 'Send'}
                             </button>
                         </div>
                         {nudgeSent && (
@@ -151,7 +154,7 @@ export function FriendDetail({ friend, currentUser, onBack, onNudge }: FriendDet
 
                     {/* Recent Workouts */}
                     <div className="card mb-4">
-                        <p className="input-label mb-3">Recent Workouts</p>
+                        <p className="section-subtitle">Recent Workouts</p>
                         {logs.length === 0 ? (
                             <p className="text-sm text-muted">No workouts logged yet</p>
                         ) : (

@@ -101,7 +101,10 @@ export function ActivityFeed() {
 
     return (
         <div className="activity-feed">
-            <h3 className="activity-feed-title">Activity</h3>
+            <div className="activity-feed-header">
+                <p className="section-subtitle">Milestones</p>
+                <h3 className="activity-feed-title">Activity</h3>
+            </div>
 
             {milestones.length === 0 ? (
                 <div className="empty-state" style={{ paddingTop: '24px' }}>
@@ -167,6 +170,7 @@ export function ActivityFeed() {
                                                 className={`celebration-btn ${alreadyCelebrated ? 'celebrated' : ''}`}
                                                 onClick={() => handleCelebrate(milestone.id, emoji)}
                                                 disabled={alreadyCelebrated}
+                                                aria-label={`Celebrate with ${emoji}`}
                                             >
                                                 {emoji}
                                             </button>
